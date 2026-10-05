@@ -63,16 +63,15 @@ The World Bank's main collection of development data: economic, social and envir
 <!-- OPENING_START -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![DPUse version](https://img.shields.io/github/v/release/dpuse/dpuse-resources?color=f6821f&label=DPUse)](https://github.com/dpuse/dpuse-resources/releases/latest)
 [![CI](https://github.com/dpuse/dpuse-resources/actions/workflows/ci.yml/badge.svg)](https://github.com/dpuse/dpuse-resources/actions/workflows/ci.yml)
-
-[DPUse](https://www.dpuse.app) · [Report a Vulnerability](https://github.com/dpuse/dpuse-resources/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-resources/issues)
 
 Sample data files.
 
+[Report a Vulnerability](https://github.com/dpuse/dpuse-resources/security/advisories/new) · [Open an Issue](https://github.com/dpuse/dpuse-resources/issues)
+
 ## About DPUse
 
-DPUse (Data Positioning & Use) is an in-browser application that positions your data for use through three core activities: sourcing, contextualising, and publishing.
+[DPUse](https://www.dpuse.app) (Data Positioning & Use) is an in-browser application that positions your data for use through three core activities: sourcing, contextualising, and publishing.
 
 **Sourcing** uses a library of [Connectors](https://www.dpuse.app/connectors) to establish [Connections](https://www.dpuse.app) to applications, databases, file stores, and curated datasets; these connections are subsequently used to configure structured [Data Views](https://www.dpuse.app) from the underlying sources.
 
@@ -106,7 +105,7 @@ This repository is managed using the common set of actions provided by [@dpuse/d
 
 ## Dependency Licenses
 
-License data is updated each time `npm run document` is run, using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. These dependencies (including transitive ones) have been checked and confirmed to use MIT — all permissive, commercially-friendly licenses. Users of the uploaded library are covered by these checks; developers cloning this repository should independently verify development dependencies.
+License data is updated each time `npm run document` is run, using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. This project has no build record, so the list is taken from its declared dependencies. These dependencies have been checked and confirmed to use MIT, all of which allow commercial use. All are used unmodified, so any licence conditions that apply only to modified versions are not triggered. Developers cloning this repository should independently verify development dependencies.
 
 | Dependency | Version | License(s) | Document |
 | :--------- | :-----: | :--------- | :------- |
@@ -129,35 +128,35 @@ This section is updated each time `npm run document` is run. Settings come from 
 
 ### Testing
 
-| Check                | Status | What it does                                                                                                        |
-| :------------------- | :----- | :------------------------------------------------------------------------------------------------------------------ |
-| Unit tests           | ❌ Off | [Vitest](https://vitest.dev) runs the unit tests.                                                                   |
-| Property-based tests | ❌ Off | [fast-check](https://fast-check.dev) runs many random inputs per test to find edge cases, alongside the unit tests. |
+| Check                | Status | What it does                                                                                                                                                                             |
+| :------------------- | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Unit tests           | ✅ On  | [Vitest](https://vitest.dev) runs the unit tests. Part of the [CI workflow](https://github.com/dpuse/dpuse-resources/actions/workflows/ci.yml) on every push and pull request to `main`. |
+| Property-based tests | ❌ Off | [fast-check](https://fast-check.dev) runs many random inputs per test to find edge cases, alongside the unit tests.                                                                      |
 
 ### Code Quality
 
-| Check         | Status | What it does                                                                                     |
-| :------------ | :----- | :----------------------------------------------------------------------------------------------- |
-| Code analysis | ❌ Off | [SonarCloud](https://sonarcloud.io) checks every push for bugs, code smells and vulnerabilities. |
-| Linting       | ❌ Off | [ESLint](https://eslint.org) checks the code for errors and style problems.                      |
+| Check         | Status | What it does                                                                                                                                                                                                       |
+| :------------ | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Code analysis | ❌ Off | [SonarCloud](https://sonarcloud.io) checks every push for bugs, code smells and vulnerabilities.                                                                                                                   |
+| Linting       | ✅ On  | [ESLint](https://eslint.org) checks the code for errors and style problems. Part of the [CI workflow](https://github.com/dpuse/dpuse-resources/actions/workflows/ci.yml) on every push and pull request to `main`. |
 
 ### Security Analysis
 
-| Check           | Status     | What it does                                                                                                                                                                  |
-| :-------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Push protection | ❔ Unknown | [GitHub push protection](https://docs.github.com/en/code-security/secret-scanning/push-protection-for-repositories-and-organizations) blocks pushes that contain credentials. |
-| Static analysis | ❌ Off     | [CodeQL](https://codeql.github.com) scans for security vulnerabilities, using the default queries, on every push and pull request to `main` and weekly.                       |
-| Secret scanning | ❔ Unknown | [GitHub secret scanning](https://docs.github.com/en/code-security/secret-scanning) detects credentials, such as API keys and tokens, committed to the repository.             |
+| Check           | Status | What it does                                                                                                                                                                                                                                                                                                                                                             |
+| :-------------- | :----- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Push protection | ✅ On  | [GitHub push protection](https://docs.github.com/en/code-security/secret-scanning/push-protection-for-repositories-and-organizations) blocks pushes that contain credentials.                                                                                                                                                                                            |
+| Static analysis | ✅ On  | [![CodeQL](https://github.com/dpuse/dpuse-resources/actions/workflows/codeql.yml/badge.svg)](https://github.com/dpuse/dpuse-resources/security/code-scanning) [CodeQL](https://codeql.github.com) scans GitHub Actions and JavaScript/TypeScript for security vulnerabilities, using the extended security queries, on every push and pull request to `main` and weekly. |
+| Secret scanning | ✅ On  | [GitHub secret scanning](https://docs.github.com/en/code-security/secret-scanning) detects credentials, such as API keys and tokens, committed to the repository.                                                                                                                                                                                                        |
 
 ### Dependencies
 
-| Check               | Status     | What it does                                                                                                                                              |
-| :------------------ | :--------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Vulnerability audit | ❌ Off     | [npm audit](https://docs.npmjs.com/cli/commands/npm-audit) fails when any dependency has a known vulnerability.                                           |
-| Supply chain risk   | ✅ On      | [Socket](https://socket.dev) flags malicious packages, typosquatting and suspicious behaviour that may not yet have a CVE.                                |
-| Security alerts     | ✅ On      | [Dependabot](https://docs.github.com/en/code-security/dependabot) alerts when a dependency has a known vulnerability, using the GitHub Advisory Database. |
-| Security updates    | ❔ Unknown | [Dependabot](https://docs.github.com/en/code-security/dependabot) opens pull requests that update vulnerable dependencies.                                |
-| Version updates     | ❌ Off     | [Dependabot](https://docs.github.com/en/code-security/dependabot) opens pull requests for new dependency versions. These are handled manually.            |
+| Check               | Status | What it does                                                                                                                                                                                                                                                                                                           |
+| :------------------ | :----- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vulnerability audit | ✅ On  | [npm audit](https://docs.npmjs.com/cli/commands/npm-audit) fails when a shipped dependency has any known vulnerability, or a development dependency has a high or critical one. Part of the [CI workflow](https://github.com/dpuse/dpuse-resources/actions/workflows/ci.yml) on every push and pull request to `main`. |
+| Supply chain risk   | ✅ On  | [Socket](https://socket.dev) flags malicious packages, typosquatting and suspicious behaviour that may not yet have a CVE.                                                                                                                                                                                             |
+| Security alerts     | ✅ On  | [Dependabot](https://docs.github.com/en/code-security/dependabot) alerts when a dependency has a known vulnerability, using the GitHub Advisory Database.                                                                                                                                                              |
+| Security updates    | ❌ Off | [Dependabot](https://docs.github.com/en/code-security/dependabot) opens pull requests that update vulnerable dependencies. These are handled manually.                                                                                                                                                                 |
+| Version updates     | ❌ Off | [Dependabot](https://docs.github.com/en/code-security/dependabot) opens pull requests for new dependency versions. These are handled manually.                                                                                                                                                                         |
 
 ### OpenSSF 🚧
 
