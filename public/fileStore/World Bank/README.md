@@ -21,6 +21,16 @@ The main data file of the World Development Indicators. It is too large for the 
 
 The bulk download also holds metadata files that are not uploaded here: `WDICountry.csv` and `WDISeries.csv` describe the countries and indicators, and `WDIcountry-series.csv`, `WDIfootnote.csv` and `WDIseries-time.csv` hold notes on particular values.
 
+## Updating WDICSV.csv
+
+The file is too large for the release, so it is uploaded by hand. From the `dpuse-resources` folder, with the new file downloaded from the World Bank Data Catalog:
+
+```sh
+npx wrangler r2 object put "dpuse-sample-data-eu/fileStore/World Bank/WDICSV.csv" --file <path to WDICSV.csv> --content-type text/csv --jurisdiction=eu --remote
+```
+
+Then update its entry in `scripts/buildIndexes_.json` with the new size and last-modified time, so the index lists it correctly, update the file details above, and release.
+
 ## Usage
 
 The file is here as a large, realistic test of reading delimited files: streaming and chunking, a byte-order mark, quoted values with commas, mostly empty columns and wide rows.

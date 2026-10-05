@@ -1,6 +1,6 @@
 // External Dependencies
+import { createHash } from 'node:crypto';
 import { promises as fs } from 'node:fs';
-import { nanoid } from 'nanoid';
 
 // Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -64,7 +64,13 @@ async function buildDirectoryIndex(id: string): Promise<void> {
                         entries.push(folderEntry);
                         await listDirectoryEntriesRecursively(itemPath, nextLevelChildren);
                     } else {
-                        const objectEntry: DirectoryObjectEntry = { id: nanoid(), lastModifiedAt: stats.mtimeMs, name, size: stats.size, typeId: 'object' };
+                        const objectEntry: DirectoryObjectEntry = {
+                            id: buildObjectId(id, `${localDirectoryPath}/${name}`),
+                            lastModifiedAt: stats.mtimeMs,
+                            name,
+                            size: stats.size,
+                            typeId: 'object'
+                        };
                         entries.push(objectEntry);
                     }
                 } catch (error) {
@@ -87,12 +93,18 @@ async function buildDirectoryIndex(id: string): Promise<void> {
     }
 }
 
+// The same file always gets the same id, as long as it keeps its path: a hash of the index and the path, 21 characters
+// long like the random ids used before.
+function buildObjectId(indexId: string, path: string): string {
+    return createHash('sha256').update(`${indexId}:${path}`).digest('base64url').slice(0, 21);
+}
+
 // Adds the files uploaded by hand to their folders, and counts them in each folder's child count.
 function addManualObjects(id: string, index: Record<string, DirectoryEntry[]>): void {
     for (const { folderPath, lastModifiedAt, name, size } of MANUAL_OBJECTS.filter(({ indexId }) => indexId === id)) {
         const entries = index[folderPath];
         if (entries == null) throw new Error(`Folder '${folderPath}' for manually uploaded '${name}' is not in the '${id}' index.`);
-        const objectEntry: DirectoryObjectEntry = { id: nanoid(), lastModifiedAt, name, size, typeId: 'object' };
+        const objectEntry: DirectoryObjectEntry = { id: buildObjectId(id, `${folderPath}/${name}`), lastModifiedAt, name, size, typeId: 'object' };
         entries.push(objectEntry);
         entries.sort((left, right) => left.typeId.localeCompare(right.typeId) || left.name.localeCompare(right.name));
 

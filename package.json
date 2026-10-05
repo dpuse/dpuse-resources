@@ -1,7 +1,7 @@
 {
     "name": "dpuse-resources",
-    "version": "1.0.102",
-    "private": true,
+    "version": "1.0.103",
+    "private": false,
     "description": "Sample data files.",
     "license": "MIT",
     "author": "Jonathan Terrell <terrell.jm@gmail.com>",
@@ -45,23 +45,24 @@
         "format": "node -e \"import('@dpuse/dpuse-development').then(m => m.formatCode())\"",
         "generate:globalWorkforce": "node scripts/generateGlobalWorkforce.ts",
         "lint": "node -e \"import('@dpuse/dpuse-development').then(m => m.lintCode())\"",
-        "release": "npm run sync && npm run _upload:applicationDirectoryToR2 && npm run _upload:fileStoreDirectoryToR2",
+        "release": "npm run build && npm run document && npm run sync && node -e \"import('@dpuse/dpuse-development').then(m => m.triggerGitHubRelease())\"",
         "sync": "node -e \"import('@dpuse/dpuse-development').then(m => m.syncProjectWithGitHub())\"",
-        "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\"",
-        "_upload:applicationDirectoryToR2": "node -e \"import('@dpuse/dpuse-development').then(m => m.uploadDirectoryToR2('public', 'application'))\"",
-        "_upload:fileStoreDirectoryToR2": "node -e \"import('@dpuse/dpuse-development').then(m => m.uploadDirectoryToR2('public', 'fileStore'))\""
+        "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^1.0.110",
+        "@dpuse/dpuse-development": "^1.0.111",
+        "@dpuse/eslint-config-dpuse": "^1.0.132",
         "@faker-js/faker": "^10.6.0",
-        "@snaplet/copycat": "^6.0.0",
         "@types/node": "^26.6.4",
+        "eslint": "^10.12.0",
         "jiti": "^2.7.0",
+        "jszip": "^3.10.2",
+        "kd-tree-javascript": "^1.0.3",
         "license-checker-rseidelsohn": "^5.0.1",
-        "nanoid": "^6.0.1",
         "npm-check-updates": "^23.1.0",
         "prettier": "^3.9.9",
         "typescript": "^6.0.3",
+        "vitest": "^5.0.3",
         "wrangler": "^4.147.0"
     }
 }

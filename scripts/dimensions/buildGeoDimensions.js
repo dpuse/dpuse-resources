@@ -1,6 +1,10 @@
-import fs from 'fs/promises';
+import fs from 'node:fs/promises';
 import JSZip from 'jszip';
 import kdTreeModule from 'kd-tree-javascript';
+
+// Reads and writes its own 'data' folder, wherever it is run from.
+process.chdir(import.meta.dirname);
+
 const kdTree = kdTreeModule.kdTree;
 
 async function buildGeographicalDimensions() {
@@ -13,37 +17,41 @@ async function buildGeographicalDimensions() {
     timeZones.sort((a, b) => {
         const offsetA = utcOffsetToMinutes(a.utcOffset);
         const offsetB = utcOffsetToMinutes(b.utcOffset);
-        if (offsetA !== offsetB) return offsetA - offsetB;
-        return a.name.localeCompare(b.name);
+        return offsetA === offsetB ? a.name.localeCompare(b.name) : offsetA - offsetB;
     });
-    fs.writeFile('./helpers/data/retrievals/timeZones.json', JSON.stringify(timeZones, null, 4), 'utf-8');
+    fs.writeFile('./data/retrievals/timeZones.json', JSON.stringify(timeZones, null, 4), 'utf-8');
 }
 
+// Formats a time zone's current offset as 'UTC±HH:MM', from the short offset 'Intl' gives, e.g. 'GMT+5:30' or 'GMT'.
 function getUTCOffset(timeZone) {
     const now = new Date();
     const options = { timeZone, timeZoneName: 'shortOffset' };
     const formatter = new Intl.DateTimeFormat('en-US', options);
     const parts = formatter.formatToParts(now);
-    let offset = parts.find((p) => p.type === 'timeZoneName')?.value || 'UTC';
-    offset = offset.replace('GMT', 'UTC');
-    if (offset === 'UTC') offset = 'UTC+00:00';
-    const match = offset.match(/UTC([+-])(\d{1,2})(?::(\d{2}))?/);
-    if (match) {
-        const sign = match[1];
-        const hours = match[2].padStart(2, '0');
-        const minutes = match[3] || '00';
-        offset = `UTC${sign}${hours}:${minutes}`;
-    }
-    return offset;
+    const offset = (parts.find((p) => p.type === 'timeZoneName')?.value || 'UTC').replace('GMT', 'UTC');
+    if (offset === 'UTC') return 'UTC+00:00';
+    const sign = offset.charAt(3);
+    if (sign !== '+' && sign !== '-') return offset;
+    const [hours = '', minutes = '00'] = offset.slice(4).split(':', 2);
+    return `UTC${sign}${hours.padStart(2, '0')}:${minutes}`;
 }
 
 function utcOffsetToMinutes(offset) {
     const match = offset.match(/UTC([+-])(\d{2}):(\d{2})/);
     if (!match) return 0;
     const sign = match[1] === '+' ? 1 : -1;
-    const hours = parseInt(match[2], 10);
-    const minutes = parseInt(match[3], 10);
+    const hours = Number(match[2]);
+    const minutes = Number(match[3]);
     return sign * (hours * 60 + minutes);
+}
+
+// Great-circle distance in kilometres between two points, for the nearest-place lookup.
+function calculateDistance(a, b) {
+    const R = 6371;
+    const dLat = ((b.lat - a.lat) * Math.PI) / 180;
+    const dLng = ((b.lng - a.lng) * Math.PI) / 180;
+    const aCalc = Math.sin(dLat / 2) ** 2 + Math.cos((a.lat * Math.PI) / 180) * Math.cos((b.lat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+    return 2 * R * Math.atan2(Math.sqrt(aCalc), Math.sqrt(1 - aCalc));
 }
 
 class GeoNamesProcessor {
@@ -76,16 +84,16 @@ class GeoNamesProcessor {
             if (fields.length < 19) continue;
 
             const place = {
-                geonameId: parseInt(fields[0]),
+                geonameId: Number(fields[0]),
                 name: fields[1],
-                latitude: parseFloat(fields[4]),
-                longitude: parseFloat(fields[5]),
+                latitude: Number(fields[4]),
+                longitude: Number(fields[5]),
                 featureClass: fields[6],
                 featureCode: fields[7],
                 countryCode: fields[8],
                 admin1Code: fields[10],
                 admin2Code: fields[11],
-                population: parseInt(fields[14]) || 0
+                population: Number(fields[14]) || 0
             };
 
             this.places.set(place.geonameId, place);
@@ -105,8 +113,8 @@ class GeoNamesProcessor {
             const fields = line.split('\t');
             if (fields.length < 2) continue;
 
-            const parentId = parseInt(fields[0]);
-            const childId = parseInt(fields[1]);
+            const parentId = Number(fields[0]);
+            const childId = Number(fields[1]);
 
             this.hierarchy.set(childId, parentId);
             count++;
@@ -117,22 +125,14 @@ class GeoNamesProcessor {
 
     // ===== KD-Tree Build =====
     buildKdTree() {
-        const points = Array.from(this.places.values()).map((p) => ({
+        const points = Array.from(this.places.values(), (p) => ({
             lat: p.latitude,
             lng: p.longitude,
             geonameId: p.geonameId,
             name: p.name
         }));
 
-        const distance = (a, b) => {
-            const R = 6371;
-            const dLat = ((b.lat - a.lat) * Math.PI) / 180;
-            const dLng = ((b.lng - a.lng) * Math.PI) / 180;
-            const aCalc = Math.sin(dLat / 2) ** 2 + Math.cos((a.lat * Math.PI) / 180) * Math.cos((b.lat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
-            return 2 * R * Math.atan2(Math.sqrt(aCalc), Math.sqrt(1 - aCalc));
-        };
-
-        this.kdTree = new kdTree(points, distance, ['lat', 'lng']);
+        this.kdTree = new kdTree(points, calculateDistance, ['lat', 'lng']);
     }
 
     parsePostalData(text) {
@@ -156,13 +156,13 @@ class GeoNamesProcessor {
                 admin1Code: fields[4],
                 admin2Name: fields[5],
                 admin2Code: fields[6],
-                latitude: parseFloat(fields[9]),
-                longitude: parseFloat(fields[10])
+                latitude: Number(fields[9]),
+                longitude: Number(fields[10])
             };
 
             // ===== KD-Tree nearest place lookup =====
             const nearest = this.kdTree.nearest({ lat: postal.latitude, lng: postal.longitude }, 1);
-            postal.geonameId = nearest.length ? nearest[0][0].geonameId : null;
+            postal.geonameId = nearest.length > 0 ? nearest[0][0].geonameId : null;
 
             this.postalCodes.set(postal.postalCode, postal);
             count++;
@@ -224,17 +224,17 @@ async function buildLocationDimension(countryCode = 'US') {
     const processor = new GeoNamesProcessor();
 
     console.log('Loading places data...');
-    const placesText = await processor.downloadAndExtract(countryCode, `http://download.geonames.org/export/dump/${countryCode}.zip`);
+    const placesText = await processor.downloadAndExtract(countryCode, `https://download.geonames.org/export/dump/${countryCode}.zip`);
     const placesCount = processor.parsePlacesData(placesText);
     console.log(`Loaded ${placesCount} places`);
 
     console.log('Loading hierarchy data...');
-    const hierarchyText = await processor.downloadAndExtract('hierarchy', 'http://download.geonames.org/export/dump/hierarchy.zip');
+    const hierarchyText = await processor.downloadAndExtract('hierarchy', 'https://download.geonames.org/export/dump/hierarchy.zip');
     const hierarchyCount = processor.parseHierarchyData(hierarchyText);
     console.log(`Loaded ${hierarchyCount} hierarchy relationships`);
 
     console.log('Loading postal codes...');
-    const postalText = await processor.downloadAndExtract(countryCode, `http://download.geonames.org/export/zip/${countryCode}.zip`);
+    const postalText = await processor.downloadAndExtract(countryCode, `https://download.geonames.org/export/zip/${countryCode}.zip`);
     console.log('Parsing postal codes...');
     const postalCount = processor.parsePostalData(postalText);
     console.log(`Loaded ${postalCount} postal codes`);

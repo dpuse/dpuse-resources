@@ -8,7 +8,6 @@ export function lookupLanguage(id) {
     if (alpha3TMatch) return alpha3TMatch;
 
     console.log('! Missing Locale___________:', id);
-    return undefined;
 }
 
 export function tabToJson(tabDelimitedText) {
@@ -19,11 +18,11 @@ export function tabToJson(tabDelimitedText) {
         if (values.length !== headers.length) {
             console.warn(`Row ${index + 2} has ${values.length} columns, expected ${headers.length}`);
         }
-        const obj = {};
-        headers.forEach((header, i) => {
-            obj[header] = values[i] ? values[i].trim() : '';
-        });
-        return obj;
+        const record = {};
+        for (const [headerIndex, header] of headers.entries()) {
+            record[header] = values[headerIndex]?.trim() ?? '';
+        }
+        return record;
     });
 
     return jsonObjects;

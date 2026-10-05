@@ -1,6 +1,6 @@
 // External Dependencies
+import { createHash } from 'node:crypto';
 import { promises as fs } from 'node:fs';
-import { copycat, fictional } from '@snaplet/copycat';
 import type { Faker } from '@faker-js/faker';
 import { faker as fakerEs } from '@faker-js/faker/locale/es';
 import { faker as fakerEsMx } from '@faker-js/faker/locale/es_MX';
@@ -24,16 +24,7 @@ import { faker as fakerZhCn } from '@faker-js/faker/locale/zh_CN';
 
 type GenderId = 'female' | 'male';
 
-type EthnicBackgroundId =
-    | 'black'
-    | 'eastAsian'
-    | 'hispanicLatino'
-    | 'indigenous'
-    | 'middleEastern'
-    | 'mixed'
-    | 'southAsian'
-    | 'southeastAsian'
-    | 'white';
+type EthnicBackgroundId = 'black' | 'eastAsian' | 'hispanicLatino' | 'indigenous' | 'middleEastern' | 'mixed' | 'southAsian' | 'southeastAsian' | 'white';
 
 interface Location {
     city: string;
@@ -102,7 +93,7 @@ const localesByKey: Record<string, Faker> = {
     nl: fakerNl,
     pt_BR: fakerPtBr,
     pt_PT: fakerPtPt,
-    zh_CN: fakerZhCn,
+    zh_CN: fakerZhCn
 };
 
 const locations: Location[] = [
@@ -113,7 +104,7 @@ const locations: Location[] = [
         sizeWeight: 30,
         locales: [
             [9, 'es'],
-            [1, 'en_GB'],
+            [1, 'en_GB']
         ],
         ethnicities: [
             [72, 'white'],
@@ -124,8 +115,8 @@ const locations: Location[] = [
             [2, 'eastAsian'],
             [2, 'mixed'],
             [1, 'southeastAsian'],
-            [1, 'indigenous'],
-        ],
+            [1, 'indigenous']
+        ]
     },
     {
         id: 'L02',
@@ -134,7 +125,7 @@ const locations: Location[] = [
         sizeWeight: 7,
         locales: [
             [9, 'es'],
-            [1, 'fr'],
+            [1, 'fr']
         ],
         ethnicities: [
             [68, 'white'],
@@ -145,8 +136,8 @@ const locations: Location[] = [
             [3, 'southAsian'],
             [2, 'eastAsian'],
             [1, 'southeastAsian'],
-            [1, 'indigenous'],
-        ],
+            [1, 'indigenous']
+        ]
     },
     {
         id: 'L03',
@@ -156,7 +147,7 @@ const locations: Location[] = [
         locales: [
             [8, 'en_GB'],
             [1, 'en_IN'],
-            [1, 'zh_CN'],
+            [1, 'zh_CN']
         ],
         ethnicities: [
             [55, 'white'],
@@ -167,8 +158,8 @@ const locations: Location[] = [
             [5, 'middleEastern'],
             [1, 'hispanicLatino'],
             [1, 'southeastAsian'],
-            [1, 'indigenous'],
-        ],
+            [1, 'indigenous']
+        ]
     },
     {
         id: 'L04',
@@ -178,7 +169,7 @@ const locations: Location[] = [
         locales: [
             [8, 'fr'],
             [1, 'ar'],
-            [1, 'en_GB'],
+            [1, 'en_GB']
         ],
         ethnicities: [
             [65, 'white'],
@@ -189,8 +180,8 @@ const locations: Location[] = [
             [3, 'eastAsian'],
             [2, 'southeastAsian'],
             [1, 'hispanicLatino'],
-            [1, 'indigenous'],
-        ],
+            [1, 'indigenous']
+        ]
     },
     {
         id: 'L05',
@@ -200,7 +191,7 @@ const locations: Location[] = [
         locales: [
             [8, 'de'],
             [1, 'ar'],
-            [1, 'en_GB'],
+            [1, 'en_GB']
         ],
         ethnicities: [
             [68, 'white'],
@@ -211,8 +202,8 @@ const locations: Location[] = [
             [3, 'southAsian'],
             [2, 'southeastAsian'],
             [1, 'hispanicLatino'],
-            [1, 'indigenous'],
-        ],
+            [1, 'indigenous']
+        ]
     },
     {
         id: 'L06',
@@ -221,7 +212,7 @@ const locations: Location[] = [
         sizeWeight: 4,
         locales: [
             [85, 'it'],
-            [15, 'en_GB'],
+            [15, 'en_GB']
         ],
         ethnicities: [
             [80, 'white'],
@@ -232,8 +223,8 @@ const locations: Location[] = [
             [2, 'eastAsian'],
             [1, 'hispanicLatino'],
             [1, 'southeastAsian'],
-            [1, 'indigenous'],
-        ],
+            [1, 'indigenous']
+        ]
     },
     {
         id: 'L07',
@@ -242,7 +233,7 @@ const locations: Location[] = [
         sizeWeight: 3,
         locales: [
             [85, 'pt_PT'],
-            [15, 'en_GB'],
+            [15, 'en_GB']
         ],
         ethnicities: [
             [70, 'white'],
@@ -253,8 +244,8 @@ const locations: Location[] = [
             [1, 'eastAsian'],
             [1, 'middleEastern'],
             [1, 'southeastAsian'],
-            [1, 'indigenous'],
-        ],
+            [1, 'indigenous']
+        ]
     },
     {
         id: 'L08',
@@ -263,7 +254,7 @@ const locations: Location[] = [
         sizeWeight: 3,
         locales: [
             [8, 'nl'],
-            [2, 'en_GB'],
+            [2, 'en_GB']
         ],
         ethnicities: [
             [65, 'white'],
@@ -274,8 +265,8 @@ const locations: Location[] = [
             [5, 'middleEastern'],
             [3, 'eastAsian'],
             [1, 'hispanicLatino'],
-            [1, 'indigenous'],
-        ],
+            [1, 'indigenous']
+        ]
     },
     {
         id: 'L09',
@@ -291,8 +282,8 @@ const locations: Location[] = [
             [5, 'mixed'],
             [2, 'middleEastern'],
             [1, 'hispanicLatino'],
-            [1, 'southeastAsian'],
-        ],
+            [1, 'southeastAsian']
+        ]
     },
     {
         id: 'L10',
@@ -303,7 +294,7 @@ const locations: Location[] = [
             [7, 'en_US'],
             [2, 'es_MX'],
             [1, 'zh_CN'],
-            [1, 'en_IN'],
+            [1, 'en_IN']
         ],
         ethnicities: [
             [42, 'white'],
@@ -314,8 +305,8 @@ const locations: Location[] = [
             [3, 'mixed'],
             [2, 'middleEastern'],
             [2, 'southeastAsian'],
-            [1, 'indigenous'],
-        ],
+            [1, 'indigenous']
+        ]
     },
     {
         id: 'L11',
@@ -324,15 +315,15 @@ const locations: Location[] = [
         sizeWeight: 6,
         locales: [
             [19, 'es_MX'],
-            [1, 'en_US'],
+            [1, 'en_US']
         ],
         ethnicities: [
             [75, 'hispanicLatino'],
             [12, 'indigenous'],
             [8, 'white'],
             [3, 'mixed'],
-            [2, 'black'],
-        ],
+            [2, 'black']
+        ]
     },
     {
         id: 'L12',
@@ -341,7 +332,7 @@ const locations: Location[] = [
         sizeWeight: 5,
         locales: [
             [19, 'pt_BR'],
-            [1, 'en_US'],
+            [1, 'en_US']
         ],
         ethnicities: [
             [45, 'white'],
@@ -352,8 +343,8 @@ const locations: Location[] = [
             [3, 'eastAsian'],
             [2, 'middleEastern'],
             [2, 'southeastAsian'],
-            [1, 'southAsian'],
-        ],
+            [1, 'southAsian']
+        ]
     },
     {
         id: 'L13',
@@ -366,8 +357,8 @@ const locations: Location[] = [
             [15, 'mixed'],
             [8, 'white'],
             [5, 'indigenous'],
-            [2, 'black'],
-        ],
+            [2, 'black']
+        ]
     },
     {
         id: 'L14',
@@ -380,8 +371,8 @@ const locations: Location[] = [
             [30, 'hispanicLatino'],
             [8, 'mixed'],
             [4, 'indigenous'],
-            [3, 'middleEastern'],
-        ],
+            [3, 'middleEastern']
+        ]
     },
     {
         id: 'L15',
@@ -391,7 +382,7 @@ const locations: Location[] = [
         locales: [
             [4, 'en_US'],
             [4, 'zh_CN'],
-            [2, 'en_IN'],
+            [2, 'en_IN']
         ],
         ethnicities: [
             [55, 'eastAsian'],
@@ -399,8 +390,8 @@ const locations: Location[] = [
             [15, 'southAsian'],
             [6, 'white'],
             [3, 'mixed'],
-            [1, 'middleEastern'],
-        ],
+            [1, 'middleEastern']
+        ]
     },
     {
         id: 'L16',
@@ -409,7 +400,7 @@ const locations: Location[] = [
         sizeWeight: 3,
         locales: [
             [92, 'ja'],
-            [8, 'en_US'],
+            [8, 'en_US']
         ],
         ethnicities: [
             [90, 'eastAsian'],
@@ -417,8 +408,8 @@ const locations: Location[] = [
             [2, 'southeastAsian'],
             [2, 'southAsian'],
             [2, 'mixed'],
-            [1, 'middleEastern'],
-        ],
+            [1, 'middleEastern']
+        ]
     },
     {
         id: 'L17',
@@ -427,7 +418,7 @@ const locations: Location[] = [
         sizeWeight: 4,
         locales: [
             [9, 'en_IN'],
-            [1, 'en_US'],
+            [1, 'en_US']
         ],
         ethnicities: [
             [90, 'southAsian'],
@@ -435,8 +426,8 @@ const locations: Location[] = [
             [2, 'white'],
             [2, 'middleEastern'],
             [2, 'eastAsian'],
-            [1, 'southeastAsian'],
-        ],
+            [1, 'southeastAsian']
+        ]
     },
     {
         id: 'L18',
@@ -446,7 +437,7 @@ const locations: Location[] = [
         locales: [
             [75, 'en_AU'],
             [15, 'zh_CN'],
-            [10, 'en_IN'],
+            [10, 'en_IN']
         ],
         ethnicities: [
             [60, 'white'],
@@ -455,8 +446,8 @@ const locations: Location[] = [
             [6, 'mixed'],
             [5, 'southeastAsian'],
             [5, 'indigenous'],
-            [4, 'middleEastern'],
-        ],
+            [4, 'middleEastern']
+        ]
     },
     {
         id: 'L19',
@@ -466,7 +457,7 @@ const locations: Location[] = [
         locales: [
             [35, 'ar'],
             [45, 'en_IN'],
-            [20, 'en_US'],
+            [20, 'en_US']
         ],
         ethnicities: [
             [45, 'southAsian'],
@@ -475,8 +466,8 @@ const locations: Location[] = [
             [10, 'white'],
             [5, 'eastAsian'],
             [3, 'black'],
-            [2, 'mixed'],
-        ],
+            [2, 'mixed']
+        ]
     },
     {
         id: 'L20',
@@ -489,9 +480,9 @@ const locations: Location[] = [
             [20, 'white'],
             [8, 'mixed'],
             [5, 'southAsian'],
-            [2, 'eastAsian'],
-        ],
-    },
+            [2, 'eastAsian']
+        ]
+    }
 ];
 
 for (const location of locations) {
@@ -543,7 +534,7 @@ async function generateGlobalWorkforce(): Promise<void> {
                 if (tenureMonths <= 0) continue;
                 const ageYears = state.ageAtHireYears + tenureMonths / 12;
                 const hazard = hazardForTenure(tenureMonths, ageYears);
-                const roll = copycat.float(`attritionRoll:${state.personId}:${monthEntry.index}`, { min: 0, max: 1 });
+                const roll = drawFloat(`attritionRoll:${state.personId}:${monthEntry.index}`, { min: 0, max: 1 });
                 if (roll < hazard) {
                     terminatePerson(state.personId, monthEntry, 'terminationDay');
                 }
@@ -561,7 +552,7 @@ async function generateGlobalWorkforce(): Promise<void> {
                 const ranked = Array.from(activePeople.keys())
                     .map((personId) => ({
                         personId,
-                        rank: copycat.float(`layoffRank:${personId}:${monthEntry.index}`, { min: 0, max: 1 }),
+                        rank: drawFloat(`layoffRank:${personId}:${monthEntry.index}`, { min: 0, max: 1 })
                     }))
                     .sort((left, right) => left.rank - right.rank);
                 for (let i = 0; i < Math.min(-diff, ranked.length); i += 1) {
@@ -578,13 +569,13 @@ async function generateGlobalWorkforce(): Promise<void> {
             const personId = `P${String(sequence).padStart(6, '0')}`;
             const employmentId = `EM${String(sequence).padStart(7, '0')}`;
 
-            const locationId = fictional.oneOfWeighted(`location:${personId}`, locationsWeighted);
+            const locationId = drawWeighted(`location:${personId}`, locationsWeighted);
             const location = locationsById.get(locationId);
             if (location === undefined) throw new Error(`Unknown location '${locationId}' assigned to '${personId}'.`);
 
-            const gender: GenderId = copycat.float(`gender:${personId}`, { min: 0, max: 1 }) < 0.5 ? 'male' : 'female';
-            const ethnicBackgroundId = fictional.oneOfWeighted(`ethnicity:${personId}`, location.ethnicities);
-            const localeKey = fictional.oneOfWeighted(`locale:${personId}`, location.locales);
+            const gender: GenderId = drawFloat(`gender:${personId}`, { min: 0, max: 1 }) < 0.5 ? 'male' : 'female';
+            const ethnicBackgroundId = drawWeighted(`ethnicity:${personId}`, location.ethnicities);
+            const localeKey = drawWeighted(`locale:${personId}`, location.locales);
             const localeFaker = localesByKey[localeKey];
             if (localeFaker === undefined) throw new Error(`Unknown locale '${localeKey}' assigned to '${personId}'.`);
 
@@ -592,7 +583,7 @@ async function generateGlobalWorkforce(): Promise<void> {
             const hireDate = randomDateInMonth(monthEntry, personId, 'hireDay');
             const birthDate = birthDateFromHire(hireDate, ageAtHireYears);
 
-            localeFaker.seed(copycat.int(`fakerSeed:${personId}`, { min: 0, max: 2_147_483_647 }));
+            localeFaker.seed(drawInt(`fakerSeed:${personId}`, { min: 0, max: 2_147_483_647 }));
             const firstName = localeFaker.person.firstName(gender);
             const lastName = localeFaker.person.lastName(gender);
 
@@ -608,7 +599,7 @@ async function generateGlobalWorkforce(): Promise<void> {
                 employerId: EMPLOYER_ID,
                 employmentId,
                 hireDate: formatDate(hireDate),
-                terminationDate: '',
+                terminationDate: ''
             });
 
             activePeople.set(personId, { ageAtHireYears, personId, hireMonthIndex: monthEntry.index, locationId });
@@ -633,19 +624,19 @@ async function generateGlobalWorkforce(): Promise<void> {
                 birthDateByPersonId.get(personId) ?? '',
                 genderByPersonId.get(personId) ?? '',
                 ethnicBackgroundByPersonId.get(personId) ?? '',
-                locationIdByPersonId.get(personId) ?? '',
-            ]),
+                locationIdByPersonId.get(personId) ?? ''
+            ])
         );
 
         const employmentRows = personIds.map((personId) => employmentsById.get(personId)).filter((row): row is EmploymentRow => row !== undefined);
         const employmentsCsv = buildCsv(
             ['employmentId', 'personId', 'employerId', 'hireDate', 'terminationDate'],
-            employmentRows.map((row) => [row.employmentId, row.personId, row.employerId, row.hireDate, row.terminationDate]),
+            employmentRows.map((row) => [row.employmentId, row.personId, row.employerId, row.hireDate, row.terminationDate])
         );
 
         const locationsCsv = buildCsv(
             ['locationId', 'country', 'city', 'sizeTier'],
-            locations.map((location) => [location.id, location.country, location.city, sizeTierFor(location.sizeWeight)]),
+            locations.map((location) => [location.id, location.country, location.city, sizeTierFor(location.sizeWeight)])
         );
 
         await fs.mkdir(WORKFORCE_DIRECTORY, { recursive: true });
@@ -687,7 +678,7 @@ function buildMonthEntries(now: Date): MonthEntry[] {
 function buildNoiseSeries(totalMonthIndex: number): number[] {
     const noise: number[] = [0];
     for (let m = 1; m <= totalMonthIndex; m += 1) {
-        const step = (copycat.float(`noiseStep:${m}`, { min: 0, max: 1 }) - 0.5) * 2 * NOISE_STEP;
+        const step = (drawFloat(`noiseStep:${m}`, { min: 0, max: 1 }) - 0.5) * 2 * NOISE_STEP;
         const previous = noise[m - 1] ?? 0;
         noise.push(clamp(previous + step, -MAX_NOISE, MAX_NOISE));
     }
@@ -722,9 +713,9 @@ function hazardForTenure(tenureMonths: number, ageYears: number): number {
 }
 
 function ageAtHireYearsFor(personId: string): number {
-    const a = copycat.float(`age1:${personId}`, { min: 0, max: 1 });
-    const b = copycat.float(`age2:${personId}`, { min: 0, max: 1 });
-    const c = copycat.float(`age3:${personId}`, { min: 0, max: 1 });
+    const a = drawFloat(`age1:${personId}`, { min: 0, max: 1 });
+    const b = drawFloat(`age2:${personId}`, { min: 0, max: 1 });
+    const c = drawFloat(`age3:${personId}`, { min: 0, max: 1 });
     const triangular = (a + b + c) / 3;
     return 19 + triangular * 36;
 }
@@ -732,7 +723,7 @@ function ageAtHireYearsFor(personId: string): number {
 function randomDateInMonth(monthEntry: MonthEntry, personId: string, salt: string): Date {
     const daysInMonth = new Date(Date.UTC(monthEntry.year, monthEntry.month + 1, 0)).getUTCDate();
     const upperDay = Math.max(1, Math.min(monthEntry.maxDay ?? daysInMonth, daysInMonth));
-    const day = copycat.int(`${salt}:${personId}:${monthEntry.index}`, { min: 1, max: upperDay });
+    const day = drawInt(`${salt}:${personId}:${monthEntry.index}`, { min: 1, max: upperDay });
     return new Date(Date.UTC(monthEntry.year, monthEntry.month, day));
 }
 
@@ -746,6 +737,32 @@ function formatDate(date: Date): string {
     const month = String(date.getUTCMonth() + 1).padStart(2, '0');
     const day = String(date.getUTCDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+}
+
+// The same key always draws the same value, so the generated data is repeatable. A value is taken from a hash of its key.
+function drawFraction(key: string): number {
+    return createHash('sha256').update(key).digest().readUIntBE(0, 6) / 2 ** 48;
+}
+
+function drawFloat(key: string, { max, min }: { max: number; min: number }): number {
+    return min + drawFraction(key) * (max - min);
+}
+
+function drawInt(key: string, { max, min }: { max: number; min: number }): number {
+    return min + Math.floor(drawFraction(key) * (max - min + 1));
+}
+
+// Picks a value from '[weight, value]' pairs, each in proportion to its weight.
+function drawWeighted<T>(key: string, pairs: [number, T][]): T {
+    const totalWeight = pairs.reduce((total, [weight]) => total + weight, 0);
+    let remaining = drawFraction(key) * totalWeight;
+    for (const [weight, value] of pairs) {
+        remaining -= weight;
+        if (remaining < 0) return value;
+    }
+    const lastPair = pairs.at(-1);
+    if (lastPair === undefined) throw new Error(`No values to draw from for '${key}'.`);
+    return lastPair[1];
 }
 
 function normalizeWeights<T>(pairs: [number, T][]): [number, T][] {
