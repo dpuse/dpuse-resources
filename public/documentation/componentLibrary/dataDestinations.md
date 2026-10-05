@@ -1,0 +1,69 @@
+# Data Destinations
+
+-   BigML
+-   Box
+-   Citrix ShareFile
+-   Cyfe
+-   Dropbox
+-   Google Drive
+-   Local File System
+-   Microsoft OneDrive
+-   MongoDB
+-   PostgreSQL
+
+## Curated List of Application Destinations
+
+-   Alooma
+-   Amazon EMR
+-   Amazon Sage Maker
+-   Apache Zeppelin
+-   Azuqua
+-   Beaker Notebook
+-   BigML
+-   Boken
+-   ChartIO
+-   Cluvio
+-   Cyfe
+-   Dashing
+-   DataHero
+-   DataVirtuality
+-   Domo
+-   Dundas
+-   Exploratory
+-   FiveTran
+-   Freeboard
+-   Geckoboard
+-   GoodData
+-   Google Cloud Datalab
+-   Google Cloud Platform
+-   Grafana
+-   Grow
+-   Ifttt
+-   Infogram
+-   Informatica
+-   IPyton
+-   Jupyter
+-   Keen Dashboard
+-   Klipfolio
+-   Looker
+-   Metabase
+-   Microsoft Azure
+-   Microsoft Excel
+-   Microsoft PowerBI
+-   Mode
+-   Mozaik
+-   Octoboard
+-   Plecto
+-   Plotly
+-   Plotly / Dash
+-   Plotly.js
+-   Qlik
+-   Qubole
+-   Redash
+-   Segmentio
+-   Slemma
+-   Tableau
+-   Trifacta
+-   Xplenty
+-   Yurbi
+-   Zapier

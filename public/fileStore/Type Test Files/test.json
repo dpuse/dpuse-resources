@@ -1,0 +1,323 @@
+[
+    {
+        "iconName": "fab fa-amazon",
+        "id": "amazonS3",
+        "label": "AWS S3",
+        "usageId": "bidirectional"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "bambooHR",
+        "label": "BambooHR"
+    },
+    {
+        "authenticationTypeId": "apiKey",
+        "iconName": "fal fa-arrow-from-left",
+        "id": "bigML",
+        "isEnabled": true,
+        "label": "BigML",
+        "parameters": [
+            {
+                "id": "apiKey",
+                "label": "API Key",
+                "type": "string"
+            }
+        ],
+        "usageId": "destination"
+    },
+    {
+        "iconName": "fal fa-archive",
+        "id": "box",
+        "label": "Box",
+        "usageId": "bidirectional"
+    },
+    {
+        "iconName": "fal fa-archive",
+        "id": "citrixShareFile",
+        "label": "Citrix ShareFile",
+        "usageId": "bidirectional"
+    },
+    {
+        "iconName": "fal fa-arrow-from-left",
+        "id": "clicData",
+        "label": "ClicData",
+        "usageId": "destination"
+    },
+    {
+        "iconName": "fal fa-arrow-from-left",
+        "id": "cyfe",
+        "isEnabled": true,
+        "label": "Cyfe",
+        "usageId": "destination"
+    },
+    {
+        "authenticationTypeId": "oauth2",
+        "iconName": "fab fa-dropbox",
+        "id": "dropbox",
+        "isEnabled": true,
+        "label": "Dropbox",
+        "usageId": "bidirectional"
+    },
+    {
+        "iconName": "fab fa-facebook",
+        "id": "facebook",
+        "label": "Facebook"
+    },
+    {
+        "iconName": "fal fa-archive",
+        "id": "ftp",
+        "label": "FTP/FTPS/SFTP",
+        "usageId": "bidirectional"
+    },
+    {
+        "authenticationTypeId": "apiKey",
+        "iconName": "fal fa-arrow-from-left",
+        "id": "geckoboard",
+        "label": "Geckoboard",
+        "parameters": [
+            {
+                "id": "apiKey",
+                "label": "API Key",
+                "type": "string"
+            }
+        ],
+        "usageId": "destination"
+    },
+    {
+        "authenticationTypeId": "oauth2",
+        "iconName": "fab fa-google-drive",
+        "id": "googleDrive",
+        "isEnabled": true,
+        "label": "GoogleDrive",
+        "usageId": "bidirectional"
+    },
+    {
+        "iconName": "fab fa-hubspot",
+        "id": "hubspot",
+        "label": "Hubspot"
+    },
+    {
+        "iconName": "fab fa-instagram",
+        "id": "instagram",
+        "label": "Instagram"
+    },
+    {
+        "iconName": "fal fa-arrow-from-left",
+        "id": "klipfolio",
+        "label": "Klipfolio",
+        "usageId": "destination"
+    },
+    {
+        "iconName": "fab fa-linkedin",
+        "id": "linkedin",
+        "label": "LinkedIn"
+    },
+    {
+        "iconName": "fab fa-microsoft",
+        "id": "microsoftAzureStorage",
+        "label": "Microsoft Azure Storage",
+        "usageId": "bidirectional"
+    },
+    {
+        "iconName": "fab fa-microsoft",
+        "id": "microsoftDynamics",
+        "label": "Microsoft Dynamics"
+    },
+    {
+        "authenticationTypeId": "oauth2",
+        "iconName": "fab fa-microsoft",
+        "id": "microsoftOneDrive",
+        "isEnabled": true,
+        "label": "Microsoft OneDrive",
+        "usageId": "bidirectional"
+    },
+    {
+        "authenticationTypeId": "oauth2",
+        "iconName": "fab fa-microsoft",
+        "id": "microsoftPowerBI",
+        "label": "Microsoft PowerBI",
+        "usageId": "destination"
+    },
+    {
+        "iconName": "fab fa-microsoft",
+        "id": "microsoftSQLServerDb",
+        "label": "Microsoft SQL Server Database",
+        "usageId": "bidirectional"
+    },
+    {
+        "authenticationTypeId": "basic",
+        "iconName": "fal fa-arrow-from-left",
+        "id": "dataposDepot",
+        "isEnabled": true,
+        "label": "Data Position Application Depot",
+        "parameters": [
+            {
+                "id": "userName",
+                "label": "User Name",
+                "type": "string"
+            },
+            {
+                "id": "password",
+                "label": "Password",
+                "type": "string"
+            },
+            {
+                "id": "host",
+                "label": "Host",
+                "type": "string"
+            },
+            {
+                "id": "port",
+                "label": "Port",
+                "type": "number"
+            },
+            {
+                "id": "database",
+                "label": "Database",
+                "type": "string"
+            }
+        ],
+        "usageId": "destination"
+    },
+    {
+        "iconName": "fal fa-database",
+        "id": "oracleDb",
+        "label": "Oracle Database",
+        "usageId": "bidirectional"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "oracleHCMCloud",
+        "label": "Oracle HCM Cloud"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "oracleJDEdwards",
+        "label": "Oracle JD Edwards"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "oraclePeopleSoftHR",
+        "label": "Oracle PeopleSoft HR"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "oracleTaleo",
+        "label": "Oracle Taleo"
+    },
+    {
+        "iconName": "fab fa-pinterest",
+        "id": "pinterest",
+        "label": "Pinterest"
+    },
+    {
+        "iconName": "fal fa-database",
+        "id": "postgreSQLDb",
+        "label": "PostgreSQL Database",
+        "usageId": "bidirectional"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "sage",
+        "label": "Sage"
+    },
+    {
+        "authenticationTypeId": "oauth2",
+        "iconName": "fab fa-salesforce",
+        "id": "salesforce",
+        "isEnabled": true,
+        "label": "Salesforce"
+    },
+    {
+        "iconName": "fab fa-salesforce",
+        "id": "salesforce",
+        "isEnabled": true,
+        "label": "Salesforce"
+    },
+    {
+        "authenticationTypeId": "oauth2",
+        "iconName": "fab fa-salesforce",
+        "id": "salesforceSandbox",
+        "isEnabled": true,
+        "label": "Salesforce Sandbox",
+        "parameters": [
+            {
+                "id": "apiKey",
+                "label": "API Key",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "iconName": "fal fa-clipboard-check",
+        "id": "sampleData",
+        "isEnabled": true,
+        "label": "Sample Data"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "sapBusinessByDesign",
+        "label": "SAP Business ByDesign"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "sapBusinessOne",
+        "label": "SAP Business One"
+    },
+    {
+        "iconName": "fal fa-archive",
+        "id": "sapDocs",
+        "label": "SAP Documents"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "sapERP",
+        "label": "SAP ERP"
+    },
+    {
+        "authenticationTypeId": "oauth2",
+        "iconName": "fal fa-server",
+        "id": "sapSuccessFactors",
+        "label": "SAP SuccessFactors"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "sapSuccessFactors",
+        "isEnabled": true,
+        "label": "SAP SuccessFactors"
+    },
+    {
+        "authenticationTypeId": "apiKey",
+        "iconName": "fal fa-server",
+        "id": "sapSuccessFactorsSandbox",
+        "isEnabled": true,
+        "label": "SAP SuccessFactors Sandbox",
+        "parameters": [
+            {
+                "id": "apiKey",
+                "label": "API Key",
+                "type": "string"
+            }
+        ]
+    },
+    {
+        "iconName": "fab fa-twitter",
+        "id": "twitter",
+        "label": "Twitter"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "workday",
+        "label": "Workday"
+    },
+    {
+        "iconName": "fab fa-youtube",
+        "id": "youTube",
+        "label": "YouTube"
+    },
+    {
+        "iconName": "fal fa-server",
+        "id": "zoho",
+        "label": "Zoho"
+    }
+]

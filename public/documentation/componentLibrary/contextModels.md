@@ -1,0 +1,77 @@
+# Context Models
+
+-   Common
+    -   Asset
+    -   Location
+    -   Party
+    -   Product
+-   Customer Service
+    -   Customer Service
+-   Human Resources
+    -   Workforce
+    -   Recruitment & Onboarding
+    -   Compensation
+    -   Learning
+    -   Attendance
+    -   Talent Management
+-   Inventory Management
+    -   Inventory Management
+-   Order Management
+    -   Order Management
+-   Sales Management
+    -   Sales Management
+-   Social Networking
+    -   Social Networking
+-   Work Effort
+
+    -   Planning & Work Effort
+
+-   Accounting & Budgeting
+-   Document, Information & Survey
+-   Environment
+-   Global
+-   Industry
+-   Research
+-   Shipments
+
+## Dimensions
+
+-   Employment
+    -   Employment Status
+    -   Employment Type
+    -   Payment Amount
+    -   Payment Grade
+    -   Standard Working Hours
+-   Geographical
+    -   Location
+-   Organisation
+    -   Organisation Type
+-   Person
+    -   Age
+    -   Country of Birth
+    -   Gender
+    -   Generation
+    -   Education Level
+    -   Ethnic Group
+    -   Home Location
+    -   Languages
+    -   Language (Preference)
+    -   Marital Status
+    -   Minority
+    -   Nationalities
+    -   Nationality of Birth
+    -   Physicality Ability
+    -   Residential Location
+    -   Sexual Orientation
+    -   Veteran Status
+-   Structural
+    -   Cost Center
+    -   Organisational Unit
+    -   Reports To
+-   Tenure
+    -   Job
+    -   Location
+    -   Organisation
+    -   Organisational Unit
+    -   Position
+    -   Reports To

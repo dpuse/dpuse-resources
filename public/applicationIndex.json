@@ -1,0 +1,11 @@
+{
+    "": [
+        { "childCount": 1, "name": "hr", "typeId": "folder" },
+        { "id": "O5lqtCA5J7CmHyr8ZrgWZ", "lastModifiedAt": 1784716172072.5535, "name": "CONTEXT.md", "size": 6221, "typeId": "object" },
+        { "id": "8mWZfJsGaE_10BIob7sOp", "lastModifiedAt": 1784711668250.3337, "name": "locations.csv", "size": 778, "typeId": "object" },
+        { "id": "qnjWDxufvqWFb95V2pHnf", "lastModifiedAt": 1784709377538.4497, "name": "organisations.csv", "size": 61, "typeId": "object" },
+        { "id": "5vOy0teWRQL8lcO7aCKVN", "lastModifiedAt": 1784711668248.6965, "name": "people.csv", "size": 1925509, "typeId": "object" }
+    ],
+    "/hr": [{ "childCount": 1, "name": "workforce", "typeId": "folder" }],
+    "/hr/workforce": [{ "id": "hu1HlNQdKUgDIgpivqLWl", "lastModifiedAt": 1784711668250.006, "name": "engagements.csv", "size": 1345083, "typeId": "object" }]
+}

@@ -1,0 +1,12 @@
+{
+    "MANUAL_OBJECTS": [
+        {
+            "indexId": "fileStore",
+            "folderPath": "/World Bank",
+            "name": "WDICSV.csv",
+            "size": 198481686,
+            "lastModifiedAt": 1790873804000,
+            "note": "World Bank World Development Indicators, data file from the bulk CSV download of 1 October 2026. Too large for the release upload, so uploaded by hand."
+        }
+    ]
+}
