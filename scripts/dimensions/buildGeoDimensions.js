@@ -242,6 +242,15 @@ async function buildLocationDimension(countryCode = 'US') {
     return processor;
 }
 
+// TODO: Turn this script from a trial into a real build. Noted in October 2026:
+// - It ends with a test call below: it loads Australia ('AU') and logs the hierarchy for one postcode, '4020', but
+//   writes nothing. A real build would take the country codes to process (from the command line, or every country in
+//   'data/geoCountries.json') and write the location dimension into './data'.
+// - 'parsePostalData' logs leftover debug output ('console.log(1111, …)' and 'console.log(3333, …)').
+// - 'postalCodes' is keyed by postcode alone, so where several places share a postcode (common in Australia) only the
+//   last one read is kept. Key by postcode and place name, or keep a list per postcode.
+// - 'buildGeographicalDimensions' at the top (time zones and their UTC offsets) is never called. It also does not
+//   await its 'fs.writeFile', and './data/retrievals' must exist first ('retrieveGeoData.js' creates it).
 // ===== Example usage =====
 const processor = await buildLocationDimension('AU');
 const result = processor.getHierarchy('4020');

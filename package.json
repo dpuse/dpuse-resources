@@ -1,6 +1,6 @@
 {
     "name": "dpuse-resources",
-    "version": "1.0.105",
+    "version": "1.0.106",
     "private": false,
     "description": "Sample data files.",
     "license": "MIT",
@@ -51,7 +51,7 @@
         "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^1.0.112",
+        "@dpuse/dpuse-development": "^1.0.113",
         "@dpuse/eslint-config-dpuse": "^1.0.132",
         "@faker-js/faker": "^10.6.0",
         "@types/node": "^26.6.4",

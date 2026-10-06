@@ -56,6 +56,13 @@ function unpackBibliographicCode(code) {
     return firstCode && secondCode ? secondCode : undefined;
 }
 
+// TODO: This step fails: it reads 'countriesFromRestCountriesIndependent.json' and
+// 'countriesFromRestCountriesDependent.json' from './data/retrievals', but 'retrieveGeoData.js' never writes those
+// files. It fetches the independent and dependent countries separately, then writes them combined and sorted as
+// 'countriesFromRestCountries.json', which 'transformGeoData.js' and 'transformFinData.js' read. Either read that
+// combined file here, as the other transforms do (simplest, and the result is the same, since only the countries'
+// 'cca2' and 'demonyms' are used), or have 'retrieveGeoData.js' also write the two separate files. Noted in October
+// 2026; the language step above still runs, and rebuilt 'perLanguages.json' byte for byte.
 async function transformNationalityData() {
     const countryDataRestCountriesIndependent = await fs.readFile('./data/retrievals/countriesFromRestCountriesIndependent.json', 'utf-8');
     const countriesRestCountriesIndependent = JSON.parse(countryDataRestCountriesIndependent);
