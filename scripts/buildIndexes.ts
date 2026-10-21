@@ -2,9 +2,13 @@
 import { createHash } from 'node:crypto';
 import { promises as fs } from 'node:fs';
 
+// DPUse Framework
+import { resolveSampleDataContentType } from '@dpuse/dpuse-development';
+
 // Types ───────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 interface DirectoryEntry {
+    label?: string; // The name shown for the entry, given only in the application index so its files read as tables.
     name: string;
     typeId: 'folder' | 'object';
 }
@@ -17,6 +21,7 @@ interface DirectoryFolderEntry extends DirectoryEntry {
 interface DirectoryObjectEntry extends DirectoryEntry {
     id: string;
     lastModifiedAt: number;
+    mimeType: string; // The content type the upload gives the file in R2, so the index and the bucket always agree.
     size: number;
     typeId: 'object';
 }
@@ -34,17 +39,20 @@ interface ManualObject {
 
 // Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const MANUAL_OBJECTS = (JSON.parse(await fs.readFile(new URL('buildIndexes_.json', import.meta.url), 'utf8')) as { MANUAL_OBJECTS: ManualObject[] }).MANUAL_OBJECTS;
+const { APPLICATION_LABELS, MANUAL_OBJECTS } = JSON.parse(await fs.readFile(new URL('buildIndexes_.json', import.meta.url), 'utf8')) as {
+    APPLICATION_LABELS: Record<string, string>; // Labels that cannot be derived from the name, keyed by path, e.g. '/hr' is 'HR'.
+    MANUAL_OBJECTS: ManualObject[];
+};
 
 // Processing ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-await buildDirectoryIndex('application');
+await buildDirectoryIndex('application', APPLICATION_LABELS);
 
 await buildDirectoryIndex('fileStore');
 
 // Helpers ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-async function buildDirectoryIndex(id: string): Promise<void> {
+async function buildDirectoryIndex(id: string, labels?: Record<string, string>): Promise<void> {
     try {
         console.info(`🚀 Building directory index for identifier '${id}'...`);
         const index: Record<string, DirectoryEntry[]> = {};
@@ -67,6 +75,7 @@ async function buildDirectoryIndex(id: string): Promise<void> {
                         const objectEntry: DirectoryObjectEntry = {
                             id: buildObjectId(id, `${localDirectoryPath}/${name}`),
                             lastModifiedAt: stats.mtimeMs,
+                            mimeType: resolveSampleDataContentType(`${id}${localDirectoryPath}/${name}`),
                             name,
                             size: stats.size,
                             typeId: 'object'
@@ -86,6 +95,7 @@ async function buildDirectoryIndex(id: string): Promise<void> {
         const toplevelNames = await fs.readdir(`./public/${id}`);
         await listDirectoryEntriesRecursively(`./public/${id}`, toplevelNames);
         addManualObjects(id, index);
+        if (labels != null) addLabels(index, labels);
         await fs.writeFile(`./public/${id}Index.json`, JSON.stringify(index), 'utf8');
         console.info('✅ Directory index built.');
     } catch (error) {
@@ -104,7 +114,14 @@ function addManualObjects(id: string, index: Record<string, DirectoryEntry[]>): 
     for (const { folderPath, lastModifiedAt, name, size } of MANUAL_OBJECTS.filter(({ indexId }) => indexId === id)) {
         const entries = index[folderPath];
         if (entries == null) throw new Error(`Folder '${folderPath}' for manually uploaded '${name}' is not in the '${id}' index.`);
-        const objectEntry: DirectoryObjectEntry = { id: buildObjectId(id, `${folderPath}/${name}`), lastModifiedAt, name, size, typeId: 'object' };
+        const objectEntry: DirectoryObjectEntry = {
+            id: buildObjectId(id, `${folderPath}/${name}`),
+            lastModifiedAt,
+            mimeType: resolveSampleDataContentType(`${id}${folderPath}/${name}`),
+            name,
+            size,
+            typeId: 'object'
+        };
         entries.push(objectEntry);
         entries.sort((left, right) => left.typeId.localeCompare(right.typeId) || left.name.localeCompare(right.name));
 
@@ -113,6 +130,26 @@ function addManualObjects(id: string, index: Record<string, DirectoryEntry[]>): 
         const folderEntry = parentEntries.find((entry): entry is DirectoryFolderEntry => entry.typeId === 'folder' && entry.name === folderPath.slice(separatorIndex + 1));
         if (folderEntry != null) folderEntry.childCount++;
     }
+}
+
+// Labels every entry, so the application index's files read as tables: 'people.csv' is 'People', and
+// 'ethnicBackgrounds.csv' is 'Ethnic Backgrounds'. A label that cannot be derived from the name comes from 'labels'.
+function addLabels(index: Record<string, DirectoryEntry[]>, labels: Record<string, string>): void {
+    for (const [folderPath, entries] of Object.entries(index)) {
+        for (const entry of entries) {
+            entry.label = labels[`${folderPath}/${entry.name}`] ?? constructLabel(entry);
+        }
+    }
+}
+
+function constructLabel({ name, typeId }: DirectoryEntry): string {
+    const extensionIndex = name.lastIndexOf('.');
+    const stem = typeId === 'object' && extensionIndex > 0 ? name.slice(0, extensionIndex) : name;
+    const words = stem
+        .replaceAll(/([a-z\d])([A-Z])/g, '$1 $2')
+        .split(/[\s_-]+/)
+        .filter((word) => word !== '');
+    return words.map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`).join(' ');
 }
 
 // TODO: Old code for reference purposes.

@@ -24,13 +24,13 @@ TODO: Upload the application and fileStore indexes to the respective plugins. Ch
 
 The [Encoding Samples](./public/fileStore/Encoding%20Samples) folder holds test files for character encoding detection and decoding.
 
-- **The folder itself:**
-    - a copy of `dpuse-shared`'s encoding sample files, one per encoding jschardet can detect plus a few mostly-ASCII CSV files
+- **[dpuse](./public/fileStore/Encoding%20Samples/dpuse):** a copy of `dpuse-shared`'s encoding sample files, made by DPUse. Its `README.md` gives the source, licence and layout.
+    - one per encoding jschardet can detect plus a few mostly-ASCII CSV files, arranged as `<encoding>/<language>.txt` and `<encoding>/names.csv`
     - mostly public-domain UDHR text, plus data written for these tests
     - see the [dpuse-shared README](https://github.com/dpuse/dpuse-shared#test-data) for sources and changes
-- **[chardet](./public/fileStore/Encoding%20Samples/chardet):** test files from [chardet](https://github.com/runk/node-chardet), copyright 2024 Dmitry Shirokov, MIT licence, unchanged. The folder's `LICENSE` file holds the licence, and its `README.md` gives the source, credit and layout.
-    - `encodings`: chardet's [unit-test files](https://github.com/runk/node-chardet/tree/master/src/test/data/encodings), each named after its encoding and, for some, its language.
-    - `corpus`: chardet's [generated corpus](https://github.com/runk/node-chardet/tree/master/corpus/generated), short synthetic texts arranged by encoding, language and use (`train`, `validation` and `test`).
+- **[chardet](./public/fileStore/Encoding%20Samples/chardet):** test files from [chardet](https://github.com/runk/node-chardet), copyright 2024 Dmitry Shirokov, MIT licence. The folder's `LICENSE` file holds the licence, and its `README.md` gives the source, credit and layout.
+    - chardet's [unit-test files](https://github.com/runk/node-chardet/tree/master/src/test/data/encodings) and [generated corpus](https://github.com/runk/node-chardet/tree/master/corpus/generated), merged into one set with each file kept once.
+    - contents unchanged, renamed and arranged as `<encoding>/<language>[-<text>].txt`, e.g. `KOI8-R/ru.txt`.
 
 ## Interesting Data Sources
 
@@ -53,7 +53,7 @@ The World Bank's main collection of development data: economic, social and envir
 
 - **Source:** the [World Bank Data Catalog](https://datacatalog.worldbank.org/search/dataset/0037712/world-development-indicators), as the bulk "CSV file" download, a ZIP archive. In October 2026 it was about 270 MB and updated on 2 October 2026. More about the collection: [wdi.worldbank.org](http://wdi.worldbank.org/) and [Wikipedia](https://en.wikipedia.org/wiki/World_Development_Indicators).
 - **Licence:** [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/), as stated on the data catalog page. Commercial use and redistribution are allowed, provided you credit the source, e.g. "Source: World Bank, World Development Indicators", and name the licence.
-- **Our copy:** `WDICSV.csv`, the data file from the bulk download of 1 October 2026, unchanged, in the [World Bank](./public/fileStore/World%20Bank) folder. Its `README.md` gives the source, credit, licence and file details.
+- **Our copy:** `WDICSV.csv`, the data file from the bulk download of 1 October 2026, unchanged, in the [World Bank Data](./public/fileStore/World%20Bank%20Data) folder. Its `README.md` gives the source, credit, licence and file details.
     - **Size:** 198,481,686 bytes (198 MB), too large for the release upload. It is uploaded by hand, and `scripts/buildIndexes_.json` lists it so the index builder includes it.
     - **Rows and columns:** 396,970 rows (265 countries and regions × 1,498 indicators) and 70 columns: `Country Name`, `Country Code`, `Indicator Name`, `Indicator Code`, then one per year from `1960` to `2025`.
     - **Format:** UTF-8 with a byte-order mark, Windows line endings, quoted values with commas, plain decimal numbers, and 65.6% of year cells empty.

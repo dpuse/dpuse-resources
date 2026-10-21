@@ -1,8 +1,11 @@
 {
+    "APPLICATION_LABELS": {
+        "/hr": "HR"
+    },
     "MANUAL_OBJECTS": [
         {
             "indexId": "fileStore",
-            "folderPath": "/World Bank",
+            "folderPath": "/World Bank Data",
             "name": "WDICSV.csv",
             "size": 198481686,
             "lastModifiedAt": 1790873804000,
