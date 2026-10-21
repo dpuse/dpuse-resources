@@ -27,8 +27,8 @@ Latest generation run: 27,423 people ever hired, **16,325 currently active** (wi
 
 ## Generator
 
-- Script: `scripts/generateGlobalWorkforce.ts` (compiles via the existing `tsconfig.scripts.json` pipeline).
-- Run with: `npm run generate:globalWorkforce` (runs `tsc` then `node dist-scripts/generateGlobalWorkforce.js`).
+- Script: `scripts/generateGlobalWorkforce.ts`, run directly by Node with no compile step.
+- Run with: `npm run generate:globalWorkforce` (runs `node scripts/generateGlobalWorkforce.ts`).
 - After regenerating, also run `npm run build` to refresh `public/applicationIndex.json`.
 - Re-running with no code changes reproduces byte-identical output (verified).
 
