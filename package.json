@@ -1,6 +1,6 @@
 {
     "name": "dpuse-resources",
-    "version": "1.0.111",
+    "version": "1.0.112",
     "private": false,
     "description": "Sample data files.",
     "license": "MIT",
@@ -16,7 +16,7 @@
         "url": "git+https://github.com/dpuse/dpuse-resources.git"
     },
     "engines": {
-        "node": ">=24",
+        "node": ">=24.10",
         "npm": ">=12"
     },
     "devEngines": {
@@ -57,6 +57,7 @@
         "@types/node": "^26.6.5",
         "@vitest/coverage-v8": "^5.0.5",
         "eslint": "^10.13.0",
+        "globals": "^17.13.0",
         "jiti": "^2.7.0",
         "jszip": "^3.10.2",
         "kd-tree-javascript": "^1.0.3",
