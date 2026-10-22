@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<people>
+  <person id="1"><name>Ada Lovelace</name><city>London</city><joined>2026-01-01</joined><score>50</score><isActive>false</isActive></person>
+  <person id="2"><name>Hélène Dubois</name><city>Orléans</city><joined>2026-02-02</joined><score>87.1</score><isActive>true</isActive></person>
+  <person id="3"><name>Smith, John</name><city>Zürich</city><joined>2026-03-03</joined><score>74.2</score><isActive>true</isActive></person>
+  <person id="4"><name>Zoë Müller</name><city>Montréal</city><joined>2026-04-04</joined><score>61.3</score><isActive>false</isActive></person>
+  <person id="5"><name>Grace Hopper</name><city>Leeds</city><joined>2026-05-05</joined><score>98.4</score><isActive>true</isActive></person>
+  <person id="6"><name>Noël Béranger</name><city>Nîmes</city><joined>2026-06-06</joined><score>85.5</score><isActive>true</isActive></person>
+  <person id="7"><name>Katherine Johnson</name><city>Boston</city><joined>2026-07-07</joined><score>72.6</score><isActive>false</isActive></person>
+  <person id="8"><name>Łukasz Nowak</name><city>Kraków</city><joined>2026-08-08</joined><score>59.7</score><isActive>true</isActive></person>
+  <person id="9"><name>José García</name><city>Málaga</city><joined>2026-09-09</joined><score>96.8</score><isActive>true</isActive></person>
+  <person id="10"><name>Ingrid Ødegård</name><city>Oslo</city><joined>2026-10-10</joined><score>83.9</score><isActive>false</isActive></person>
+  <person id="11"><name>Alan Turing</name><city>London</city><joined>2026-11-11</joined><score>71</score><isActive>true</isActive></person>
+  <person id="12"><name>Chloé Martin</name><city>Orléans</city><joined>2026-12-12</joined><score>58.1</score><isActive>true</isActive></person>
+  <person id="13"><name>Mary Jones</name><city>Zürich</city><joined>2026-01-13</joined><score>95.2</score><isActive>false</isActive></person>
+  <person id="14"><name>Søren Kierkegaard</name><city>Montréal</city><joined>2026-02-14</joined><score>82.3</score><isActive>true</isActive></person>
+  <person id="15"><name>Peter Brown</name><city>Leeds</city><joined>2026-03-15</joined><score>69.4</score><isActive>true</isActive></person>
+  <person id="16"><name>Renée Lefèvre</name><city>Nîmes</city><joined>2026-04-16</joined><score>56.5</score><isActive>false</isActive></person>
+  <person id="17"><name>Tim Berners-Lee</name><city>Boston</city><joined>2026-05-17</joined><score>93.6</score><isActive>true</isActive></person>
+  <person id="18"><name>Ana Ruíz</name><city>Kraków</city><joined>2026-06-18</joined><score>80.7</score><isActive>true</isActive></person>
+  <person id="19"><name>Barbara Liskov</name><city>Málaga</city><joined>2026-07-19</joined><score>67.8</score><isActive>false</isActive></person>
+  <person id="20"><name>Björk Guðmundsdóttir</name><city>Oslo</city><joined>2026-08-20</joined><score>54.9</score><isActive>true</isActive></person>
+</people>

@@ -1,0 +1,21 @@
+id	name	city	joined	score	isActive
+1	Ada Lovelace	London	2026-01-01	50	false
+2	Hélène Dubois	Orléans	2026-02-02	87.1	true
+3	Smith, John	Zürich	2026-03-03	74.2	true
+4	Zoë Müller	Montréal	2026-04-04	61.3	false
+5	Grace Hopper	Leeds	2026-05-05	98.4	true
+6	Noël Béranger	Nîmes	2026-06-06	85.5	true
+7	Katherine Johnson	Boston	2026-07-07	72.6	false
+8	Łukasz Nowak	Kraków	2026-08-08	59.7	true
+9	José García	Málaga	2026-09-09	96.8	true
+10	Ingrid Ødegård	Oslo	2026-10-10	83.9	false
+11	Alan Turing	London	2026-11-11	71	true
+12	Chloé Martin	Orléans	2026-12-12	58.1	true
+13	Mary Jones	Zürich	2026-01-13	95.2	false
+14	Søren Kierkegaard	Montréal	2026-02-14	82.3	true
+15	Peter Brown	Leeds	2026-03-15	69.4	true
+16	Renée Lefèvre	Nîmes	2026-04-16	56.5	false
+17	Tim Berners-Lee	Boston	2026-05-17	93.6	true
+18	Ana Ruíz	Kraków	2026-06-18	80.7	true
+19	Barbara Liskov	Málaga	2026-07-19	67.8	false
+20	Björk Guðmundsdóttir	Oslo	2026-08-20	54.9	true

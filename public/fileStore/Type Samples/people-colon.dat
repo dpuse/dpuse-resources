@@ -1,0 +1,21 @@
+id:name:city:joined:score:isActive
+1:Ada Lovelace:London:20260101:50:false
+2:Hélène Dubois:Orléans:20260202:87.1:true
+3:Smith, John:Zürich:20260303:74.2:true
+4:Zoë Müller:Montréal:20260404:61.3:false
+5:Grace Hopper:Leeds:20260505:98.4:true
+6:Noël Béranger:Nîmes:20260606:85.5:true
+7:Katherine Johnson:Boston:20260707:72.6:false
+8:Łukasz Nowak:Kraków:20260808:59.7:true
+9:José García:Málaga:20260909:96.8:true
+10:Ingrid Ødegård:Oslo:20261010:83.9:false
+11:Alan Turing:London:20261111:71:true
+12:Chloé Martin:Orléans:20261212:58.1:true
+13:Mary Jones:Zürich:20260113:95.2:false
+14:Søren Kierkegaard:Montréal:20260214:82.3:true
+15:Peter Brown:Leeds:20260315:69.4:true
+16:Renée Lefèvre:Nîmes:20260416:56.5:false
+17:Tim Berners-Lee:Boston:20260517:93.6:true
+18:Ana Ruíz:Kraków:20260618:80.7:true
+19:Barbara Liskov:Málaga:20260719:67.8:false
+20:Björk Guðmundsdóttir:Oslo:20260820:54.9:true
