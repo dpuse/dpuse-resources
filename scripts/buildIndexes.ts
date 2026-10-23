@@ -67,7 +67,7 @@ async function buildDirectoryIndex(id: string, labels?: Record<string, string>):
                 try {
                     const stats = await fs.stat(itemPath);
                     if (stats.isDirectory()) {
-                        const nextLevelChildren = await fs.readdir(itemPath);
+                        const nextLevelChildren = await readVisibleNames(itemPath);
                         const folderEntry: DirectoryFolderEntry = { childCount: nextLevelChildren.length, name, typeId: 'folder' };
                         entries.push(folderEntry);
                         await listDirectoryEntriesRecursively(itemPath, nextLevelChildren);
@@ -92,7 +92,7 @@ async function buildDirectoryIndex(id: string, labels?: Record<string, string>):
             });
         }
 
-        const toplevelNames = await fs.readdir(`./public/${id}`);
+        const toplevelNames = await readVisibleNames(`./public/${id}`);
         await listDirectoryEntriesRecursively(`./public/${id}`, toplevelNames);
         addManualObjects(id, index);
         if (labels != null) addLabels(index, labels);
@@ -101,6 +101,12 @@ async function buildDirectoryIndex(id: string, labels?: Record<string, string>):
     } catch (error) {
         console.error('❌ Error building directory index.', error);
     }
+}
+
+// Hidden files, such as the '.DS_Store' files macOS leaves in folders, are git-ignored and never uploaded, so they are
+// left out of the index and of each folder's count.
+async function readVisibleNames(directoryPath: string): Promise<string[]> {
+    return (await fs.readdir(directoryPath)).filter((name) => !name.startsWith('.'));
 }
 
 // The same file always gets the same id, as long as it keeps its path: a hash of the index and the path, 21 characters

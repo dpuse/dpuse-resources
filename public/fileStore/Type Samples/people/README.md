@@ -65,7 +65,6 @@ first, so for prose the user overrides the format.
 What detection gets wrong today, with the released file previewer and CSV parser:
 
 - `people-iso-8859-1.csv` is guessed as Windows-1250, so 'Hélène' reads as 'Hélčne'.
-- `people.jsonl` is reported as plain text, because JSON Lines is not detected yet.
 - `people-csv-content.md` is reported as markdown, because its extension decides. Reading it as delimited text needs the
   user to override the format.
 - `people.xlsm` is reported as `xlsx` from the 4 KB preview, because its content types entry comes last.
