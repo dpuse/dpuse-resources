@@ -1,0 +1,4 @@
+Ada Lovelace wrote the first published algorithm for a machine, more than a century before one was built.
+Grace Hopper, decades later, wrote the first compiler and helped design COBOL.
+Hélène Dubois, Zoë Müller and Noël Béranger joined the team last spring.
+None of this is a table; it is just prose, though some lines hold a comma.

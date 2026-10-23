@@ -1,5 +1,0 @@
-Sample notes about the people data.
-
-The file lists twenty people, with the city each lives in, the date they joined, a score, and whether they are active.
-Some names carry accents, such as Hélène, Zoë and Noël, to test encodings.
-Nothing here is delimited, though a line may hold a comma, like this one.
