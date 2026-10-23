@@ -52,10 +52,13 @@ Files `file-type` identifies from their first bytes.
 
 ## Plain text and markdown
 
-| File                 | Tests                                                       |
-| -------------------- | ----------------------------------------------------------- |
-| `people-prose.txt`   | Prose that is not delimited, though most lines hold a comma |
-| `people-markdown.md` | Markdown with headings, a list and a table                  |
+| File                 | Tests                                      |
+| -------------------- | ------------------------------------------ |
+| `people-prose.txt`   | Prose with one comma on most lines         |
+| `people-markdown.md` | Markdown with headings, a list and a table |
+
+`people-prose.txt` is read as comma-delimited, by design. A two-column data file looks the same, and data files come
+first, so for prose the user overrides the format.
 
 ## Known issues
 
@@ -63,7 +66,6 @@ What detection gets wrong today, with the released file previewer and CSV parser
 
 - `people-iso-8859-1.csv` is guessed as Windows-1250, so 'Hélène' reads as 'Hélčne'.
 - `people.jsonl` is reported as plain text, because JSON Lines is not detected yet.
-- `people-prose.txt` is reported as comma-delimited, because most of its lines hold exactly one comma.
 - `people-csv-content.md` is reported as markdown, because its extension decides. Reading it as delimited text needs the
   user to override the format.
 - `people.xlsm` is reported as `xlsx` from the 4 KB preview, because its content types entry comes last.
