@@ -1,6 +1,6 @@
 {
     "name": "dpuse-resources",
-    "version": "1.0.117",
+    "version": "1.0.118",
     "private": false,
     "description": "Sample data files.",
     "license": "MIT",
@@ -52,7 +52,7 @@
     },
     "devDependencies": {
         "@dpuse/dpuse-development": "^1.0.130",
-        "@dpuse/eslint-config-dpuse": "^1.0.141",
+        "@dpuse/eslint-config-dpuse": "^1.0.142",
         "@faker-js/faker": "^10.6.0",
         "@types/node": "^26.6.5",
         "@vitest/coverage-v8": "^5.0.5",
@@ -66,6 +66,6 @@
         "prettier": "^3.9.10",
         "typescript": "^6.0.3",
         "vitest": "^5.0.5",
-        "wrangler": "^4.151.3"
+        "wrangler": "^4.152.0"
     }
 }
