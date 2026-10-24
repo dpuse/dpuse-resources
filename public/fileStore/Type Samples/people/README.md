@@ -41,6 +41,21 @@ Files `file-type` identifies from their first bytes.
 | `people-comma`             | Comma-delimited with no extension                                      |
 | `people-csv-content.md`    | Comma-delimited content under a markdown extension                     |
 
+## Parsing
+
+Files are parsed strictly: a quote that breaks the CSV rules is reported as an error, in the preview and the full read
+alike.
+
+| File                               | Tests                                                                                |
+| ---------------------------------- | ------------------------------------------------------------------------------------ |
+| `people-stray-quote.csv`           | A quote inside an unquoted value, `Peter "Pete" Brown`. Reported as an error.        |
+| `people-text-after-quote.csv`      | Text after a closing quote, `"Tim" Berners-Lee`. Reported as an error.               |
+| `people-unclosed-quote.csv`        | A quote opened before `Mary Jones` and never closed. Reported as an error.           |
+| `people-multiline.csv`             | A valid quoted value holding a line break, `"Grace` / `Hopper"`.                     |
+| `people-multiline-preview-cut.csv` | A valid quoted value of several lines across byte 4096, where the 4 KB preview ends. |
+| `people-single-column.csv`         | One column of names, so no delimiter is found.                                       |
+| `people-empty.csv`                 | An empty file, read as delimited text with no rows.                                  |
+
 ## JSON
 
 | File                      | Tests                                                    |
@@ -68,3 +83,7 @@ What detection gets wrong today, with the released file previewer and CSV parser
 - `people-csv-content.md` is reported as markdown, because its extension decides. Reading it as delimited text needs the
   user to override the format.
 - `people.xlsm` is reported as `xlsx` from the 4 KB preview, because its content types entry comes last.
+- `people-unclosed-quote.csv` shows 13 rows in the preview, because the preview takes a quote still open at its end
+  for a value cut off by the 4 KB limit, even when the whole file fits. The full read reports the error.
+- `people-single-column.csv` is read as space-delimited, because most names are two words.
+- `people-empty.csv` fails in the full read with an internal error rather than giving no rows.

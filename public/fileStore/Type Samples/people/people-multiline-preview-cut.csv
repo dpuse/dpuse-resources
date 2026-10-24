@@ -1,0 +1,125 @@
+id,name,city,joined,score,isActive
+1,Mary Jones,London,2026-01-01,50,false
+2,Mary Jones,Orléans,2026-02-02,87.1,true
+3,Mary Jones,Zürich,2026-03-03,74.2,true
+4,Mary Jones,Montréal,2026-04-04,61.3,false
+5,Mary Jones,Leeds,2026-05-05,98.4,true
+6,Mary Jones,Nîmes,2026-06-06,85.5,true
+7,Mary Jones,Boston,2026-07-07,72.6,false
+8,Mary Jones,Kraków,2026-08-08,59.7,true
+9,Mary Jones,Málaga,2026-09-09,96.8,true
+10,Mary Jones,Oslo,2026-10-10,83.9,false
+11,Mary Jones,London,2026-11-11,71,true
+12,Mary Jones,Orléans,2026-12-12,58.1,true
+13,Mary Jones,Zürich,2026-01-13,95.2,false
+14,Mary Jones,Montréal,2026-02-14,82.3,true
+15,Mary Jones,Leeds,2026-03-15,69.4,true
+16,Mary Jones,Nîmes,2026-04-16,56.5,false
+17,Mary Jones,Boston,2026-05-17,93.6,true
+18,Mary Jones,Kraków,2026-06-18,80.7,true
+19,Mary Jones,Málaga,2026-07-19,67.8,false
+20,Mary Jones,Oslo,2026-08-20,54.9,true
+21,Mary Jones,London,2026-01-01,50,false
+22,Mary Jones,Orléans,2026-02-02,87.1,true
+23,Mary Jones,Zürich,2026-03-03,74.2,true
+24,Mary Jones,Montréal,2026-04-04,61.3,false
+25,Mary Jones,Leeds,2026-05-05,98.4,true
+26,Mary Jones,Nîmes,2026-06-06,85.5,true
+27,Mary Jones,Boston,2026-07-07,72.6,false
+28,Mary Jones,Kraków,2026-08-08,59.7,true
+29,Mary Jones,Málaga,2026-09-09,96.8,true
+30,Mary Jones,Oslo,2026-10-10,83.9,false
+31,Mary Jones,London,2026-11-11,71,true
+32,Mary Jones,Orléans,2026-12-12,58.1,true
+33,Mary Jones,Zürich,2026-01-13,95.2,false
+34,Mary Jones,Montréal,2026-02-14,82.3,true
+35,Mary Jones,Leeds,2026-03-15,69.4,true
+36,Mary Jones,Nîmes,2026-04-16,56.5,false
+37,Mary Jones,Boston,2026-05-17,93.6,true
+38,Mary Jones,Kraków,2026-06-18,80.7,true
+39,Mary Jones,Málaga,2026-07-19,67.8,false
+40,Mary Jones,Oslo,2026-08-20,54.9,true
+41,Mary Jones,London,2026-01-01,50,false
+42,Mary Jones,Orléans,2026-02-02,87.1,true
+43,Mary Jones,Zürich,2026-03-03,74.2,true
+44,Mary Jones,Montréal,2026-04-04,61.3,false
+45,Mary Jones,Leeds,2026-05-05,98.4,true
+46,Mary Jones,Nîmes,2026-06-06,85.5,true
+47,Mary Jones,Boston,2026-07-07,72.6,false
+48,Mary Jones,Kraków,2026-08-08,59.7,true
+49,Mary Jones,Málaga,2026-09-09,96.8,true
+50,Mary Jones,Oslo,2026-10-10,83.9,false
+51,Mary Jones,London,2026-11-11,71,true
+52,Mary Jones,Orléans,2026-12-12,58.1,true
+53,Mary Jones,Zürich,2026-01-13,95.2,false
+54,Mary Jones,Montréal,2026-02-14,82.3,true
+55,Mary Jones,Leeds,2026-03-15,69.4,true
+56,Mary Jones,Nîmes,2026-04-16,56.5,false
+57,Mary Jones,Boston,2026-05-17,93.6,true
+58,Mary Jones,Kraków,2026-06-18,80.7,true
+59,Mary Jones,Málaga,2026-07-19,67.8,false
+60,Mary Jones,Oslo,2026-08-20,54.9,true
+61,Mary Jones,London,2026-01-01,50,false
+62,Mary Jones,Orléans,2026-02-02,87.1,true
+63,Mary Jones,Zürich,2026-03-03,74.2,true
+64,Mary Jones,Montréal,2026-04-04,61.3,false
+65,Mary Jones,Leeds,2026-05-05,98.4,true
+66,Mary Jones,Nîmes,2026-06-06,85.5,true
+67,Mary Jones,Boston,2026-07-07,72.6,false
+68,Mary Jones,Kraków,2026-08-08,59.7,true
+69,Mary Jones,Málaga,2026-09-09,96.8,true
+70,Mary Jones,Oslo,2026-10-10,83.9,false
+71,Mary Jones,London,2026-11-11,71,true
+72,Mary Jones,Orléans,2026-12-12,58.1,true
+73,Mary Jones,Zürich,2026-01-13,95.2,false
+74,Mary Jones,Montréal,2026-02-14,82.3,true
+75,Mary Jones,Leeds,2026-03-15,69.4,true
+76,Mary Jones,Nîmes,2026-04-16,56.5,false
+77,Mary Jones,Boston,2026-05-17,93.6,true
+78,Mary Jones,Kraków,2026-06-18,80.7,true
+79,Mary Jones,Málaga,2026-07-19,67.8,false
+80,Mary Jones,Oslo,2026-08-20,54.9,true
+81,Mary Jones,London,2026-01-01,50,false
+82,Mary Jones,Orléans,2026-02-02,87.1,true
+83,Mary Jones,Zürich,2026-03-03,74.2,true
+84,Mary Jones,Montréal,2026-04-04,61.3,false
+85,Mary Jones,Leeds,2026-05-05,98.4,true
+86,Mary Jones,Nîmes,2026-06-06,85.5,true
+87,Mary Jones,Boston,2026-07-07,72.6,false
+88,Mary Jones,Kraków,2026-08-08,59.7,true
+89,Mary Jones,Málaga,2026-09-09,96.8,true
+90,Mary Jones,Oslo,2026-10-10,83.9,false
+91,Mary Jones,London,2026-11-11,71,true
+92,Mary Jones,Orléans,2026-12-12,58.1,true
+93,Mary Jones,Zürich,2026-01-13,95.2,false
+94,"Note line 1
+Note line 2
+Note line 3
+Note line 4
+Note line 5
+Note line 6
+Note line 7
+Note line 8
+Note line 9
+Note line 10
+Note line 11
+Note line 12
+Note line 13
+Note line 14
+Note line 15
+Note line 16
+Note line 17
+Note line 18
+Note line 19
+Note line 20
+Note line 21
+Note line 22
+Note line 23
+Note line 24
+Note line 25
+Note line 26
+Note line 27
+Note line 28
+Note line 29
+Note line 30",London,2026-01-01,50,true
+95,Ada Lovelace,London,2026-01-02,51,true

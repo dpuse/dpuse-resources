@@ -31,6 +31,7 @@ interface SavVariable {
 // and the workbooks need SheetJS, which is no longer published to npm. SQLite files are written by the 'sqlite3'
 // command, which macOS includes.
 const OUTPUT_DIRECTORY = './public/fileStore/Type Samples/people';
+const PREVIEW_BYTE_COUNT = 4096; // The file previewer reads this much of a file.
 
 // ── People ─ The same 20 people in every file, so results can be compared across formats. Accented names test
 // encodings, and 'Smith, John' tests a quoted delimiter.
@@ -107,6 +108,15 @@ await writeSample('people-ragged.csv', constructRaggedText());
 await writeSample('people-iso-8859-1.csv', Buffer.from(constructDelimitedText(',').replaceAll('Ł', 'L'), 'latin1')); // 'Ł' has no ISO-8859-1 form.
 await writeSample('people-utf-8-bom.csv', Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(constructDelimitedText(','))]));
 
+// ── Parsing ─ Quotes that break the CSV rules, which strict parsing reports as errors, and valid files at the edges.
+await writeSample('people-stray-quote.csv', constructDelimitedText(',').replace('Peter Brown', 'Peter "Pete" Brown')); // A quote inside an unquoted value.
+await writeSample('people-text-after-quote.csv', constructDelimitedText(',').replace('Tim Berners-Lee', '"Tim" Berners-Lee'));
+await writeSample('people-unclosed-quote.csv', constructDelimitedText(',').replace('Mary Jones', '"Mary Jones')); // The quote runs on to the end of the file.
+await writeSample('people-multiline.csv', constructDelimitedText(',').replace('Grace Hopper', '"Grace\nHopper"')); // Valid: a quoted value can hold a line break.
+await writeSample('people-multiline-preview-cut.csv', constructPreviewCutText());
+await writeSample('people-single-column.csv', `name\n${PEOPLE.map((person) => (person.name.includes(',') ? `"${person.name}"` : person.name)).join('\n')}\n`);
+await writeSample('people-empty.csv', '');
+
 // ── JSON
 await writeSample('people.json', `${JSON.stringify(PEOPLE, undefined, 2)}\n`);
 await writeSample('people-minified.json', JSON.stringify(Array.from({ length: 10 }, () => PEOPLE).flat())); // One line, longer than the 4 KB preview.
@@ -145,6 +155,21 @@ function constructDelimitedText(delimiter: string, lineBreak = '\n'): string {
     };
     const rows = [COLUMN_KEYS.map((key) => key), ...PEOPLE.map((person) => COLUMN_KEYS.map((key) => person[key]))];
     return rows.map((row) => row.map((value) => quote(value)).join(delimiter)).join(lineBreak) + lineBreak;
+}
+
+// Valid CSV whose quoted, multi-line value spans byte 4096, where the 4 KB preview ends. The preview stops at the last
+// line break before it, which falls inside the value, so the preview sees a quote that is never closed.
+function constructPreviewCutText(): string {
+    const lines = [COLUMN_KEYS.join(',')];
+    let id = 1;
+    while (`${lines.join('\n')}\n`.length < PREVIEW_BYTE_COUNT - 200) {
+        const person = PEOPLE[(id - 1) % PEOPLE.length] ?? PEOPLE[0];
+        lines.push([String(id), 'Mary Jones', person?.city ?? '', person?.joined ?? '', String(person?.score ?? 0), String(person?.isActive ?? false)].join(','));
+        id++;
+    }
+    const noteLines = Array.from({ length: 30 }, (_, index) => `Note line ${String(index + 1)}`);
+    lines.push(`${String(id)},"${noteLines.join('\n')}",London,2026-01-01,50,true`, `${String(id + 1)},Ada Lovelace,London,2026-01-02,51,true`);
+    return `${lines.join('\n')}\n`;
 }
 
 // Two rows lose their last values, as a hand-edited file might.
