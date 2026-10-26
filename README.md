@@ -30,7 +30,7 @@ The [Encoding Samples](./public/fileStore/Encoding%20Samples) folder holds test 
     - see the [dpuse-shared README](https://github.com/dpuse/dpuse-shared#test-data) for sources and changes
 - **[chardet](./public/fileStore/Encoding%20Samples/chardet):** test files from [chardet](https://github.com/runk/node-chardet), copyright 2024 Dmitry Shirokov, MIT licence. The folder's `LICENSE` file holds the licence, and its `README.md` gives the source, credit and layout.
     - chardet's [unit-test files](https://github.com/runk/node-chardet/tree/master/src/test/data/encodings) and [generated corpus](https://github.com/runk/node-chardet/tree/master/corpus/generated), merged into one set with each file kept once.
-    - contents unchanged, renamed `<encoding>_<language>[-<text>].txt`, e.g. `KOI8-R_ru.txt`.
+    - contents unchanged, renamed `<encoding>_<language>[-<text>].txt`, e.g. `koi8-r_ru.txt`.
 
 ## Interesting Data Sources
 

@@ -6,8 +6,8 @@ Test files made by DPUse for character encoding detection and decoding: one or t
 
 93 files in 86 encodings, named `<encoding>_<file>`:
 
-- `<encoding>` is the encoding the file is stored in, named as jschardet reports it, e.g. `Windows-1251` or `cp850`.
-- `<language>.txt` holds about 1,000 characters of the Universal Declaration of Human Rights in a language that suits the encoding, named by its language code, e.g. `Windows-1251_ru.txt`.
+- `<encoding>` is the encoding the file is stored in, named as jschardet reports it, in lower case, e.g. `windows-1251` or `cp850`.
+- `<language>.txt` holds about 1,000 characters of the Universal Declaration of Human Rights in a language that suits the encoding, named by its language code, e.g. `windows-1251_ru.txt`.
 - `names.csv` holds a small table of names and cities, mostly plain ASCII with a few accented or non-Latin values. It is in seven encodings.
 
 Each file keeps only characters its encoding can hold. `cp1006_ur.txt` (Urdu) loses about 17% of the text, because that code page lacks several Urdu letters. `cp864_ar.txt` and `cp1006_ur.txt` store Arabic letters as fixed presentation forms, as those code pages require.
