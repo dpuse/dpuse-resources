@@ -25,12 +25,12 @@ TODO: Upload the application and fileStore indexes to the respective plugins. Ch
 The [Encoding Samples](./public/fileStore/Encoding%20Samples) folder holds test files for character encoding detection and decoding.
 
 - **[dpuse](./public/fileStore/Encoding%20Samples/dpuse):** a copy of `dpuse-shared`'s encoding sample files, made by DPUse. Its `README.md` gives the source, licence and layout.
-    - one per encoding jschardet can detect plus a few mostly-ASCII CSV files, arranged as `<encoding>/<language>.txt` and `<encoding>/names.csv`
+    - one per encoding jschardet can detect plus a few mostly-ASCII CSV files, named `<encoding>_<language>.txt` and `<encoding>_names.csv`
     - mostly public-domain UDHR text, plus data written for these tests
     - see the [dpuse-shared README](https://github.com/dpuse/dpuse-shared#test-data) for sources and changes
 - **[chardet](./public/fileStore/Encoding%20Samples/chardet):** test files from [chardet](https://github.com/runk/node-chardet), copyright 2024 Dmitry Shirokov, MIT licence. The folder's `LICENSE` file holds the licence, and its `README.md` gives the source, credit and layout.
     - chardet's [unit-test files](https://github.com/runk/node-chardet/tree/master/src/test/data/encodings) and [generated corpus](https://github.com/runk/node-chardet/tree/master/corpus/generated), merged into one set with each file kept once.
-    - contents unchanged, renamed and arranged as `<encoding>/<language>[-<text>].txt`, e.g. `KOI8-R/ru.txt`.
+    - contents unchanged, renamed `<encoding>_<language>[-<text>].txt`, e.g. `KOI8-R_ru.txt`.
 
 ## Interesting Data Sources
 
