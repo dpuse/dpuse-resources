@@ -15,6 +15,7 @@ interface DirectoryEntry {
 
 interface DirectoryFolderEntry extends DirectoryEntry {
     childCount: number;
+    id: string;
     typeId: 'folder';
 }
 
@@ -68,13 +69,18 @@ async function buildDirectoryIndex(id: string, labels?: Record<string, string>):
                     const stats = await fs.stat(itemPath);
                     if (stats.isDirectory()) {
                         const nextLevelChildren = await readVisibleNames(itemPath);
-                        const folderEntry: DirectoryFolderEntry = { childCount: nextLevelChildren.length, name, typeId: 'folder' };
+                        const folderEntry: DirectoryFolderEntry = {
+                            childCount: nextLevelChildren.length,
+                            id: buildObjectId(id, `${localDirectoryPath}/${name}`),
+                            name,
+                            typeId: 'folder'
+                        };
                         entries.push(folderEntry);
                         await listDirectoryEntriesRecursively(itemPath, nextLevelChildren);
                     } else {
                         const objectEntry: DirectoryObjectEntry = {
                             id: buildObjectId(id, `${localDirectoryPath}/${name}`),
-                            lastModifiedAt: stats.mtimeMs,
+                            lastModifiedAt: Math.round(stats.mtimeMs), // macOS gives fractions of a millisecond, which the index does not need.
                             mimeType: resolveSampleDataContentType(`${id}${localDirectoryPath}/${name}`),
                             name,
                             size: stats.size,
@@ -109,8 +115,8 @@ async function readVisibleNames(directoryPath: string): Promise<string[]> {
     return (await fs.readdir(directoryPath)).filter((name) => !name.startsWith('.'));
 }
 
-// The same file always gets the same id, as long as it keeps its path: a hash of the index and the path, 21 characters
-// long like the random ids used before.
+// The same file or folder always gets the same id, as long as it keeps its path: a hash of the index and the path, 21
+// characters long like the random ids used before.
 function buildObjectId(indexId: string, path: string): string {
     return createHash('sha256').update(`${indexId}:${path}`).digest('base64url').slice(0, 21);
 }
