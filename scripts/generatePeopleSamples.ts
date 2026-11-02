@@ -68,6 +68,22 @@ const PEOPLE: Person[] = NAMES.map((name, index) => ({
 }));
 const COLUMN_KEYS = ['id', 'name', 'city', 'joined', 'score', 'isActive'] as const;
 
+// ── Blank and Missing ─ Each way a value can be empty, in text, date, number and boolean columns. A blank value is quoted
+// and empty, or only spaces. A missing one has nothing between its delimiters, is a null word, or is past the record's end.
+const BLANK_AND_MISSING_REPLACEMENTS = [
+    ['Orléans,2026-02-02', '"",2026-02-02'], // Blank text.
+    ['Montréal,2026-04-04', '   ,2026-04-04'], // Blank text, as spaces.
+    ['2026-01-13', '""'], // Blank date.
+    ['74.2', '""'], // Blank number.
+    ['98.4', ''], // Missing number.
+    ['83.9,false', '83.9,'], // Missing boolean.
+    ['Kraków,2026-08-08', 'null,2026-08-08'], // Null word in text.
+    ['2026-06-06', 'NULL'], // Null word in a date.
+    ['72.6', 'N/A'], // Null word in a number.
+    ['71,true', '71,None'], // Null word in a boolean.
+    ['Chloé Martin,Orléans,2026-12-12,58.1,true', 'Chloé Martin,Orléans'] // Past the record's end.
+] as const;
+
 // ── Text Samples ─ Prose and markdown, written as they would be by hand.
 const PROSE_TEXT = `Ada Lovelace wrote the first published algorithm for a machine, more than a century before one was built.
 Grace Hopper, decades later, wrote the first compiler and helped design COBOL.
@@ -105,6 +121,7 @@ await writeSample('people-colon.dat', constructDelimitedText(':').replaceAll(/(\
 await writeSample('people-comma', constructDelimitedText(',')); // No extension.
 await writeSample('people-csv-content.md', constructDelimitedText(',')); // Delimited data under a markdown extension.
 await writeSample('people-ragged.csv', constructRaggedText());
+await writeSample('people-blank-null.csv', constructBlankNullText());
 await writeSample('people-iso-8859-1.csv', Buffer.from(constructDelimitedText(',').replaceAll('Ł', 'L'), 'latin1')); // 'Ł' has no ISO-8859-1 form.
 await writeSample('people-utf-8-bom.csv', Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(constructDelimitedText(','))]));
 
@@ -170,6 +187,12 @@ function constructPreviewCutText(): string {
     const noteLines = Array.from({ length: 30 }, (_, index) => `Note line ${String(index + 1)}`);
     lines.push(`${String(id)},"${noteLines.join('\n')}",London,2026-01-01,50,true`, `${String(id + 1)},Ada Lovelace,London,2026-01-02,51,true`);
     return `${lines.join('\n')}\n`;
+}
+
+function constructBlankNullText(): string {
+    let text = constructDelimitedText(',');
+    for (const [value, replacement] of BLANK_AND_MISSING_REPLACEMENTS) text = text.replace(value, replacement);
+    return text;
 }
 
 // Two rows lose their last values, as a hand-edited file might.

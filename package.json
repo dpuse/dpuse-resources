@@ -1,6 +1,6 @@
 {
     "name": "dpuse-resources",
-    "version": "1.0.132",
+    "version": "1.0.133",
     "private": false,
     "description": "Sample data files.",
     "license": "MIT",
@@ -36,7 +36,7 @@
         "fsevents@2.3.3": true,
         "unrs-resolver@1.12.2": true,
         "esbuild@0.28.2": true,
-        "workerd@1.20261023.1": true
+        "workerd@1.20261101.1": true
     },
     "scripts": {
         "audit": "node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
@@ -52,16 +52,16 @@
         "test": "node -e \"import('@dpuse/dpuse-development').then(m => m.testProject())\""
     },
     "devDependencies": {
-        "@dpuse/dpuse-development": "^1.0.139",
-        "@dpuse/eslint-config-dpuse": "^1.0.145",
+        "@dpuse/dpuse-development": "^1.0.145",
+        "@dpuse/eslint-config-dpuse": "^1.0.148",
         "@faker-js/faker": "^10.6.0",
-        "@types/node": "^26.6.5",
+        "@types/node": "^26.6.6",
         "@vitest/coverage-v8": "^5.0.5",
         "apache-arrow": "^21.2.0",
         "avsc": "^5.7.9",
-        "eslint": "^10.13.0",
-        "globals": "^17.13.0",
-        "hyparquet-writer": "^0.17.0",
+        "eslint": "^10.14.0",
+        "globals": "^17.14.0",
+        "hyparquet-writer": "^0.18.0",
         "jiti": "^2.7.0",
         "jszip": "^3.10.2",
         "kd-tree-javascript": "^1.0.3",
@@ -70,6 +70,6 @@
         "prettier": "^3.9.10",
         "typescript": "^6.0.3",
         "vitest": "^5.0.5",
-        "wrangler": "^4.153.0"
+        "wrangler": "^4.156.1"
     }
 }
