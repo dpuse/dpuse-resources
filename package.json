@@ -1,6 +1,6 @@
 {
     "name": "dpuse-resources",
-    "version": "1.0.133",
+    "version": "1.0.134",
     "private": false,
     "description": "Sample data files.",
     "license": "MIT",
@@ -36,7 +36,7 @@
         "fsevents@2.3.3": true,
         "unrs-resolver@1.12.2": true,
         "esbuild@0.28.2": true,
-        "workerd@1.20261101.1": true
+        "workerd@1.20261102.1": true
     },
     "scripts": {
         "audit": "node -e \"import('@dpuse/dpuse-development').then(m => m.auditDependencies())\"",
@@ -56,7 +56,7 @@
         "@dpuse/eslint-config-dpuse": "^1.0.148",
         "@faker-js/faker": "^10.6.0",
         "@types/node": "^26.6.6",
-        "@vitest/coverage-v8": "^5.0.5",
+        "@vitest/coverage-v8": "^5.1.0",
         "apache-arrow": "^21.2.0",
         "avsc": "^5.7.9",
         "eslint": "^10.14.0",
@@ -69,7 +69,7 @@
         "npm-check-updates": "^23.1.1",
         "prettier": "^3.9.10",
         "typescript": "^6.0.3",
-        "vitest": "^5.0.5",
-        "wrangler": "^4.156.1"
+        "vitest": "^5.1.0",
+        "wrangler": "^4.156.2"
     }
 }
