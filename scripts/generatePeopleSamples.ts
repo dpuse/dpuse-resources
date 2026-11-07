@@ -84,6 +84,16 @@ const BLANK_AND_MISSING_REPLACEMENTS = [
     ['Chloé Martin,Orléans,2026-12-12,58.1,true', 'Chloé Martin,Orléans'] // Past the record's end.
 ] as const;
 
+// ── Invalid ─ Values that do not fit their column's type, in number, date and boolean columns. Few enough that each
+// column still reads as its type, so they show as invalid rather than turning the column into text.
+const INVALID_VALUE_REPLACEMENTS = [
+    ['7,Katherine Johnson', '7a,Katherine Johnson'], // Not a whole number.
+    ['2026-02-14,82.3', 'soon,high'], // Neither a date nor a number.
+    ['2026-03-15,69.4', 'last March,about 70'], // Neither a date nor a number.
+    ['56.5,false', '56.5,maybe'], // Not true or false.
+    ['93.6,true', '93.6,pending'] // Not true or false.
+] as const;
+
 // ── Text Samples ─ Prose and markdown, written as they would be by hand.
 const PROSE_TEXT = `Ada Lovelace wrote the first published algorithm for a machine, more than a century before one was built.
 Grace Hopper, decades later, wrote the first compiler and helped design COBOL.
@@ -122,6 +132,7 @@ await writeSample('people-comma', constructDelimitedText(',')); // No extension.
 await writeSample('people-csv-content.md', constructDelimitedText(',')); // Delimited data under a markdown extension.
 await writeSample('people-ragged.csv', constructRaggedText());
 await writeSample('people-blank-null.csv', constructBlankNullText());
+await writeSample('people-invalid.csv', constructInvalidText());
 await writeSample('people-iso-8859-1.csv', Buffer.from(constructDelimitedText(',').replaceAll('Ł', 'L'), 'latin1')); // 'Ł' has no ISO-8859-1 form.
 await writeSample('people-utf-8-bom.csv', Buffer.concat([Buffer.from([0xef, 0xbb, 0xbf]), Buffer.from(constructDelimitedText(','))]));
 
@@ -192,6 +203,12 @@ function constructPreviewCutText(): string {
 function constructBlankNullText(): string {
     let text = constructDelimitedText(',');
     for (const [value, replacement] of BLANK_AND_MISSING_REPLACEMENTS) text = text.replace(value, replacement);
+    return text;
+}
+
+function constructInvalidText(): string {
+    let text = constructDelimitedText(',');
+    for (const [value, replacement] of INVALID_VALUE_REPLACEMENTS) text = text.replace(value, replacement);
     return text;
 }
 

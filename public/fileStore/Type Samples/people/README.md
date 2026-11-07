@@ -32,6 +32,7 @@ Files `file-type` identifies from their first bytes.
 | `people-crlf.csv`          | Windows line endings (CRLF)                                            |
 | `people-ragged.csv`        | Two rows missing their last values                                     |
 | `people-blank-null.csv`    | Blank and missing values, and null words, in each kind of column       |
+| `people-invalid.csv`       | Values that do not fit their column's type: `7a`, `soon`, `maybe`      |
 | `people-utf-8-bom.csv`     | UTF-8 with a byte order mark                                           |
 | `people-iso-8859-1.csv`    | Single-byte ISO-8859-1 rather than UTF-8                               |
 | `people.tsv`               | Tab-delimited                                                          |
