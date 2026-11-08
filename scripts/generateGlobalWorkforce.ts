@@ -71,8 +71,9 @@ const GROWTH_INFLECTION = 0.58;
 const EMPLOYER_ID = 'O001';
 
 const APPLICATION_DIRECTORY = './public/application';
-const WORKFORCE_DIRECTORY = './public/application/hr/workforce';
+const WORKFORCE_DIRECTORY = './public/application/HR/Workforce';
 const ORGANISATIONS_FILE = './public/application/organisations.csv';
+const FILE_STORE_APPLICATION_DIRECTORY = './public/fileStore/Application'; // A copy of the application data, so it can also be opened as files.
 
 // Data ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
@@ -645,6 +646,7 @@ async function generateGlobalWorkforce(): Promise<void> {
         await fs.writeFile(`${APPLICATION_DIRECTORY}/locations.csv`, locationsCsv, 'utf8');
 
         await ensureEmployerOrganisation();
+        await copyApplicationToFileStore();
 
         const activeCount = employmentRows.filter((row) => row.terminationDate === '').length;
         console.info(`✅ Generated ${personIds.length} people (${activeCount} currently active) across ${locations.length} locations.`);
@@ -788,6 +790,12 @@ function buildCsv(headers: string[], rows: string[][]): string {
 
 function quoteCsvValue(value: string): string {
     return `"${value.replace(/"/g, '""')}"`;
+}
+
+// Replaces the file store copy rather than writing over it, so a file removed from the application data goes from the copy too.
+async function copyApplicationToFileStore(): Promise<void> {
+    await fs.rm(FILE_STORE_APPLICATION_DIRECTORY, { force: true, recursive: true });
+    await fs.cp(APPLICATION_DIRECTORY, FILE_STORE_APPLICATION_DIRECTORY, { recursive: true });
 }
 
 async function ensureEmployerOrganisation(): Promise<void> {

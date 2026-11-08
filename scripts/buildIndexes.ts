@@ -41,7 +41,7 @@ interface ManualObject {
 // Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 const { APPLICATION_LABELS, MANUAL_OBJECTS } = JSON.parse(await fs.readFile(new URL('buildIndexes_.json', import.meta.url), 'utf8')) as {
-    APPLICATION_LABELS: Record<string, string>; // Labels that cannot be derived from the name, keyed by path, e.g. '/hr' is 'HR'.
+    APPLICATION_LABELS: Record<string, string>; // Labels that cannot be derived from the name, keyed by path, e.g. '/HR' is 'HR'.
     MANUAL_OBJECTS: ManualObject[];
 };
 
