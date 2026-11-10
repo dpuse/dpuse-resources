@@ -1,0 +1,36 @@
+{
+    "$schema": "https://datapackage.org/profiles/2.0/dataresource.json",
+    "name": "locations",
+    "path": "locations.csv",
+    "format": "csv",
+    "mediatype": "text/csv",
+    "encoding": "utf-8",
+    "dialect": {
+        "header": true,
+        "delimiter": ","
+    },
+    "schema": {
+        "fields": [
+            {
+                "name": "locationId",
+                "title": "Location ID",
+                "type": "string"
+            },
+            {
+                "name": "country",
+                "title": "Country",
+                "type": "string"
+            },
+            {
+                "name": "city",
+                "title": "City",
+                "type": "string"
+            },
+            {
+                "name": "sizeTier",
+                "title": "Size tier",
+                "type": "string"
+            }
+        ]
+    }
+}

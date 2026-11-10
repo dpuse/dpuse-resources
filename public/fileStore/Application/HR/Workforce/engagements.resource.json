@@ -1,0 +1,41 @@
+{
+    "$schema": "https://datapackage.org/profiles/2.0/dataresource.json",
+    "name": "engagements",
+    "path": "engagements.csv",
+    "format": "csv",
+    "mediatype": "text/csv",
+    "encoding": "utf-8",
+    "dialect": {
+        "header": true,
+        "delimiter": ","
+    },
+    "schema": {
+        "fields": [
+            {
+                "name": "employmentId",
+                "title": "Employment ID",
+                "type": "string"
+            },
+            {
+                "name": "personId",
+                "title": "Person ID",
+                "type": "string"
+            },
+            {
+                "name": "employerId",
+                "title": "Employer ID",
+                "type": "string"
+            },
+            {
+                "name": "hireDate",
+                "title": "Hire date",
+                "type": "date"
+            },
+            {
+                "name": "terminationDate",
+                "title": "Termination date",
+                "type": "date"
+            }
+        ]
+    }
+}

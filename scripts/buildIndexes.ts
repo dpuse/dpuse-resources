@@ -20,20 +20,11 @@ interface DirectoryFolderEntry extends DirectoryEntry {
 }
 
 interface DirectoryObjectEntry extends DirectoryEntry {
-    columns?: DeclaredColumn[]; // The table's columns, given only in the application index, so the connector takes them as a database states them.
     id: string;
     lastModifiedAt: number;
     mimeType: string; // The content type the upload gives the file in R2, so the index and the bucket always agree.
     size: number;
     typeId: 'object';
-}
-
-// A column as the application states it, in the form of DPUse's 'DeclaredColumnConfig'.
-interface DeclaredColumn {
-    name: string; // As the file's header row writes it.
-    label: string;
-    dataTypeId: 'boolean' | 'numeric' | 'string' | 'temporal';
-    dataSubtypeId: string | undefined;
 }
 
 // A file uploaded by hand, outside the release, because it is too large for it. It is not in the repository, so the
@@ -49,23 +40,30 @@ interface ManualObject {
 
 // Constants ───────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-const { APPLICATION_COLUMNS, APPLICATION_LABELS, MANUAL_OBJECTS } = JSON.parse(await fs.readFile(new URL('buildIndexes_.json', import.meta.url), 'utf8')) as {
-    APPLICATION_COLUMNS: Record<string, DeclaredColumn[]>; // Each table's columns, keyed by path, e.g. '/people.csv'.
+// A table is described by a Data Resource beside it, e.g. 'people.resource.json' for 'people.csv': its encoding, its
+// header row and delimiter, and its columns (https://datapackage.org/standard/data-resource/).
+const RESOURCE_FILE_SUFFIX = '.resource.json';
+
+const { APPLICATION_LABELS, MANUAL_OBJECTS } = JSON.parse(await fs.readFile(new URL('buildIndexes_.json', import.meta.url), 'utf8')) as {
     APPLICATION_LABELS: Record<string, string>; // Labels that cannot be derived from the name, keyed by path, e.g. '/HR' is 'HR'.
     MANUAL_OBJECTS: ManualObject[];
 };
 
 // Processing ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-await buildDirectoryIndex('application', APPLICATION_LABELS, APPLICATION_COLUMNS);
+await buildDirectoryIndex('application', APPLICATION_LABELS, true);
 
 await buildDirectoryIndex('fileStore');
 
 // Helpers ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
-async function buildDirectoryIndex(id: string, labels?: Record<string, string>, columns?: Record<string, DeclaredColumn[]>): Promise<void> {
+// An application lists only its tables, so its index leaves out the resource files beside them. The connector fetches a
+// table's resource itself. A file store lists every file, resource files included.
+async function buildDirectoryIndex(id: string, labels?: Record<string, string>, hidesResourceFiles = false): Promise<void> {
     try {
         console.info(`🚀 Building directory index for identifier '${id}'...`);
+        const readListedNames = async (directoryPath: string): Promise<string[]> =>
+            (await readVisibleNames(directoryPath)).filter((name) => !hidesResourceFiles || !name.endsWith(RESOURCE_FILE_SUFFIX));
         const index: Record<string, DirectoryEntry[]> = {};
 
         async function listDirectoryEntriesRecursively(directoryPath: string, names: string[]): Promise<void> {
@@ -78,7 +76,7 @@ async function buildDirectoryIndex(id: string, labels?: Record<string, string>, 
                 try {
                     const stats = await fs.stat(itemPath);
                     if (stats.isDirectory()) {
-                        const nextLevelChildren = await readVisibleNames(itemPath);
+                        const nextLevelChildren = await readListedNames(itemPath);
                         const folderEntry: DirectoryFolderEntry = {
                             childCount: nextLevelChildren.length,
                             id: buildObjectId(id, `${localDirectoryPath}/${name}`),
@@ -108,11 +106,11 @@ async function buildDirectoryIndex(id: string, labels?: Record<string, string>, 
             });
         }
 
-        const toplevelNames = await readVisibleNames(`./public/${id}`);
+        await checkResourceFiles(`./public/${id}`);
+        const toplevelNames = await readListedNames(`./public/${id}`);
         await listDirectoryEntriesRecursively(`./public/${id}`, toplevelNames);
         addManualObjects(id, index);
         if (labels != null) addLabels(index, labels);
-        if (columns != null) await addColumns(id, index, columns);
         await fs.writeFile(`./public/${id}Index.json`, JSON.stringify(index), 'utf8');
         console.info('✅ Directory index built.');
     } catch (error) {
@@ -165,25 +163,24 @@ function addLabels(index: Record<string, DirectoryEntry[]>, labels: Record<strin
     }
 }
 
-// Adds each table's columns to its entry. The files are generated, so a header row that no longer matches its columns
-// stops the build, rather than the connector reading a column as the wrong type.
-async function addColumns(id: string, index: Record<string, DirectoryEntry[]>, columns: Record<string, DeclaredColumn[]>): Promise<void> {
-    for (const [path, declaredColumns] of Object.entries(columns)) {
-        const separatorIndex = path.lastIndexOf('/');
-        const entry = index[path.slice(0, separatorIndex)]?.find(
-            (entry): entry is DirectoryObjectEntry => entry.typeId === 'object' && entry.name === path.slice(separatorIndex + 1)
-        );
-        if (entry == null) throw new Error(`Table '${path}' for its columns is not in the '${id}' index.`);
-
-        const contents = await fs.readFile(`./public/${id}${path}`, 'utf8');
+// Checks that each resource file names the table beside it, and its columns in order, because a reader matches them by
+// position. The tables are generated, so a header row that no longer matches its resource stops the build, rather than a
+// connector reading a column as the wrong type.
+async function checkResourceFiles(directoryPath: string): Promise<void> {
+    const resourcePaths = (await fs.readdir(directoryPath, { recursive: true })).filter((path) => path.endsWith(RESOURCE_FILE_SUFFIX));
+    for (const resourcePath of resourcePaths) {
+        const tablePath = `${directoryPath}/${resourcePath.slice(0, -RESOURCE_FILE_SUFFIX.length)}.csv`;
+        const resource = JSON.parse(await fs.readFile(`${directoryPath}/${resourcePath}`, 'utf8')) as { path: string; schema: { fields: { name: string }[] } };
+        if (!tablePath.endsWith(`/${resource.path}`)) throw new Error(`The resource '${resourcePath}' names '${resource.path}' rather than the table beside it.`);
+        const { schema } = resource;
+        const contents = await fs.readFile(tablePath, 'utf8');
         const headerNames = contents
             .slice(0, contents.indexOf('\n'))
             .split(',')
             .map((value) => value.replace(/^"|"$/g, '').replaceAll('""', '"')); // The generators quote every value, and no header name holds a comma.
-        const declaredNames = declaredColumns.map(({ name }) => name);
-        if (headerNames.join(',') !== declaredNames.join(','))
-            throw new Error(`The header row of '${path}' (${headerNames.join(', ')}) does not match its columns (${declaredNames.join(', ')}).`);
-        entry.columns = declaredColumns;
+        const fieldNames = schema.fields.map(({ name }) => name);
+        if (headerNames.join(',') !== fieldNames.join(','))
+            throw new Error(`The header row of '${tablePath}' (${headerNames.join(', ')}) does not match its resource (${fieldNames.join(', ')}).`);
     }
 }
 
