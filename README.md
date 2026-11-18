@@ -105,7 +105,7 @@ This repository is managed using the common set of actions provided by [@dpuse/d
 
 ## Dependency Licenses
 
-License data is updated each time `npm run document` is run, using [license-checker](https://github.com/RSeidelsohn/license-checker-rseidelsohn). The following table lists all production dependencies. This project has no build record, so the list is taken from its declared dependencies. These dependencies have been checked and confirmed to use MIT, all of which allow commercial use. All are used unmodified, so any licence conditions that apply only to modified versions are not triggered. Developers cloning this repository should independently verify development dependencies.
+License data is updated each time `npm run document` is run, using [CycloneDX](https://github.com/CycloneDX/cyclonedx-node-npm). The following table lists all production dependencies. This project has no build record, so the list is taken from its declared dependencies. These dependencies have been checked and confirmed to use MIT, all of which allow commercial use. All are used as published. Where the build has to adjust a dependency so it can be bundled, the adjustment only affects how its files are located and loaded, never what the code does. Developers cloning this repository should independently verify development dependencies.
 
 | Dependency | Version | License(s) | Document |
 | :--------- | :-----: | :--------- | :------- |
